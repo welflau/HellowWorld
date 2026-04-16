@@ -106,7 +106,7 @@
             background: linear-gradient(45deg, #1d4ed8, #3730a3);
             color: white;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 10px;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
@@ -114,7 +114,7 @@
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+            box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
         }
     </style>
 </head>
@@ -123,10 +123,10 @@
     
     <div class="container">
         <h1 class="hello-world">Hello World!</h1>
-        <p class="subtitle">Welcome to our amazing web experience</p>
+        <p class="subtitle">Welcome to our amazing website</p>
         <p class="welcome-text">
-            This is a beautifully designed Hello World page that demonstrates modern web development techniques. 
-            We've combined elegant styling with smooth animations to create an engaging user experience.
+            This is a simple yet elegant Hello World page designed to showcase modern web design principles. 
+            We hope you enjoy your visit and find everything you're looking for.
         </p>
         <a href="#" class="cta-button">Get Started</a>
     </div>
@@ -134,11 +134,19 @@
     <script>
         function updateClock() {
             const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const timeString = `${hours}:${minutes}:${seconds}`;
-            document.getElementById('digitalClock').textContent = timeString;
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            const dateString = now.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+            
+            document.getElementById('digitalClock').textContent = `${dateString} ${timeString}`;
         }
 
         // Update clock immediately and then every second
