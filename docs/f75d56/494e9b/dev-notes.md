@@ -1,9 +1,9 @@
 # 开发笔记 — 在左上角添加实时数字时钟
 
-> 2026-04-16 20:30 | LLM
+> 2026-04-16 20:31 | LLM
 
 ## 产出文件
-- [index.html](/app#repo?file=index.html) (4697 chars)
+- [index.html](/app#repo?file=index.html) (4609 chars)
 
 ## 自测: 自测 6/6 通过 ✅
 
@@ -22,7 +22,7 @@
 ```diff
 --- a/index.html
 +++ b/index.html
-@@ -103,5 +103,55 @@
+@@ -103,5 +103,50 @@
          .cta-button {
 
              display: inline-block;
@@ -31,14 +31,14 @@
 
 -            backgroun
 
--... (truncated, 5787 chars)
+-... (truncated, 4697 chars)
 +            background: linear-gradient(45deg, #1d4ed8, #3730a3);
 
 +            color: white;
 
 +            text-decoration: none;
 
-+            border-radius: 10px;
++            border-radius: 50px;
 
 +            font-weight: bold;
 
@@ -54,7 +54,7 @@
 
 +            transform: translateY(-2px);
 
-+            box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
++            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
 
 +        }
 
@@ -64,21 +64,25 @@
 
 +<body>
 
-+    <div class="digital-clock" id="digitalClock"></div>
++    <div class="digital-clock" id="digitalClock">
 
-+    
++        00:00:00
+
++    </div>
+
++
 
 +    <div class="container">
 
 +        <h1 class="hello-world">Hello World!</h1>
 
-+        <p class="subtitle">Welcome to our amazing website</p>
++        <p class="subtitle">Welcome to our amazing web experience</p>
 
 +        <p class="welcome-text">
 
-+            This is a simple yet elegant Hello World page designed to showcase modern web design principles. 
++            This is a beautifully designed Hello World page that showcases modern web development techniques. 
 
-+            We hope you enjoy your visit and find everything you're looking for.
++            We've combined elegant styling with smooth animations to create an engaging user experience.
 
 +        </p>
 
@@ -94,32 +98,28 @@
 
 +            const now = new Date();
 
-+            const timeString = now.toLocaleTimeString('en-US', {
++            const hours = String(now.getHours()).padStart(2, '0');
 
-+                hour12: false,
++            const minutes = String(now.getMinutes()).padStart(2, '0');
 
-+                hour: '2-digit',
++            const seconds = String(now.getSeconds()).padStart(2, '0');
 
-+                minute: '2-digit',
++            
 
-+                second: '2-digit'
++            const timeString = `${hours}:${minutes}:${seconds}`;
 
-+            });
++            document.getElementById('digitalClock').textContent = timeString;
 
-+            const dateString = now.toLocaleDateString('en-US', {
++        }
 
-+                year: 'numeric',
++
 
-+                month: '2-digit',
++        // Update clock immediately and then every second
 
-+                day: '2-digit'
-
-+            });
-
-... (共 60 行变更)
+... (共 55 行变更)
 ```
 
 ## 页面预览截图
 
-![开发自测 — 在左上角添加实时数字时钟](screenshots/dev_1776342642.png)
+![开发自测 — 在左上角添加实时数字时钟](screenshots/dev_1776342672.png)
 
