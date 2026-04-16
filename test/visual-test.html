@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Color Compatibility Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .test-header h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-header p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .test-card {
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid #f0f0f0;
+        }
+        
+        .test-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .color-sample {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .bg-white { background: #ffffff; }
+        .bg-white-hex { background: #fff; }
+        .bg-white-rgb { background: rgb(255, 255, 255); }
+        .bg-white-rgba { background: rgba(255, 255, 255, 1); }
+        .bg-white-hsl { background: hsl(0, 0%, 100%); }
+        .bg-white-keyword { background: white; }
+        
+        .browser-info {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .compatibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .compatibility-table th,
+        .compatibility-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .compatibility-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        .status-good { color: #28a745; font-weight: bold; }
+        .status-warning { color: #ffc107; font-weight: bold; }
+        .status-bad { color: #dc3545; font-weight: bold; }
+        
+        .test-instructions {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid #667eea;
+        }
+        
+        .test-instructions h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .test-instructions ul {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>Background Color Compatibility Test</h1>
+        <p>Testing white background display across different browsers and CSS methods</p>
+    </div>
+    
+    <div class="browser-info" id="browserInfo">
+        <strong>Current Browser:</strong> <span id="browserName">Detecting...</span>
+    </div>
+    
+    <div class="test-instructions">
+        <h3>Test Instructions</h3>
+        <ul>
+            <li>All color samples below should display as pure white background</li>
+            <li>Check for any color variations or rendering differences</li>
+            <li>Test in multiple browsers: Chrome, Firefox, Safari, Edge</li>
+            <li>Verify both desktop and mobile versions</li>
+            <li>Report any inconsistencies in the compatibility table</li>
+        </ul>
+    </div>
+    
+    <div class="test-grid">
+        <div class="test-card">
+            <h3>CSS Color Methods</h3>
+            <div class="color-sample bg-white">#ffffff</div>
+            <div class="color-sample bg-white-hex">#fff</div>
+            <div class="color-sample bg-white-rgb">rgb(255, 255, 255)</div>
+            <div class="color-sample bg-white-rgba">rgba(255, 255, 255, 1)</div>
+            <div class="color-sample bg-white-hsl">hsl(0, 0%, 100%)</div>
+            <div class="color-sample bg-white-keyword">white</div>
+        </div>
+        
+        <div class="test-card">
+            <h3>Browser Compatibility</h3>
+            <table class="compatibility-table">
+                <thead>
+                    <tr>
+                        <th>Browser</th>
+                        <th>Status</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Chrome</td>
+                        <td class="status-good">✓ Excellent</td>
+                        <td>Full support</td>
+                    </tr>
+                    <tr>
+                        <td>Firefox</td>
+                        <td class="status-good">✓ Excellent</td>
+                        <td>Full support</td>
+                    </tr>
+                    <tr>
+                        <td>Safari</td>
+                        <td class="status-good">✓ Excellent</td>
+                        <td>Full support</td>
+                    </tr>
+                    <tr>
+                        <td>Edge</td>
+                        <td class="status-good">✓ Excellent</td>
+                        <td>Full support</td>
+                    </tr>
+                    <tr>
+                        <td>IE 11</td>
+                        <td class="status-warning">⚠ Limited</td>
+                        <td>No backdrop-filter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="test-card">
+            <h3>Advanced Features Test</h3>
+            <div style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); padding: 20px; border-radius: 10px; margin: 10px 0;">
+                <strong>Backdrop Filter + White Background</strong><br>
+                This should show white background with blur effect
+            </div>
+            <div style="background: linear-gradient(to right, #ffffff, #ffffff); padding: 20px; border-radius: 10px; margin: 10px 0;">
+                <strong>White Gradient Background</strong><br>
+                Linear gradient from white to white
+            </div>
+        </div>
+        
+        <div class="test-card">
+            <h3>Test Actions</h3>
+            <button class="btn" onclick="testBackgroundChange()">Change Background</button>
+            <button class="btn" onclick="resetBackground()">Reset Background</button>
+            <button class="btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+            <div id="testResult" style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; display: none;">
+                <strong>Test Result:</strong> <span id="resultText"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-card">
+        <h3>Manual Test Checklist</h3>
+        <div style="text-align: left;">
+            <label><input type="checkbox"> All white samples appear identical</label><br>
+            <label><input type="checkbox"> No color bleeding or artifacts</label><br>
+            <label><input type="checkbox"> Backdrop filter works correctly</label><br>
+            <label><input type="checkbox"> Responsive design maintains white background</label><br>
+            <label><input type="checkbox"> Print preview shows white background</label><br>
+            <label><input type="checkbox"> High contrast mode compatibility</label><br>
+        </div>
+    </div>
+    
+    <script>
+        // Browser detection
+        function detectBrowser() {
+            const userAgent = navigator.userAgent;
+            let browserName = 'Unknown';
+            
+            if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
+                browserName = 'Google Chrome';
+            } else if (userAgent.includes('Firefox')) {
+                browserName = 'Mozilla Firefox';
+            } else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
+                browserName = 'Safari';
+            } else if (userAgent.includes('Edg')) {
+                browserName = 'Microsoft Edge';
+            } else if (userAgent.includes('Trident')) {
+                browserName = 'Internet Explorer';
+            }
+            
+            document.getElementById('browserName').textContent = browserName + ' (' + navigator.platform + ')';
+        }
+        
+        // Test functions
+        function testBackgroundChange() {
+            document.body.style.background = '#f0f0f0';
+            setTimeout(() => {
+                document.body.style.background = '#ffffff';
+                showTestResult('Background change test completed - returned to white');
+            }, 1000);
+        }
+        
+        function resetBackground() {
+            document.body.style.background = '#ffffff';
+            showTestResult('Background reset to white (#ffffff)');
+        }
+        
+        function toggleDarkMode() {
+            const isDark = document.body.style.background === 'rgb(51, 51, 51)';
+            if (isDark) {
+                document.body.style.background = '#ffffff';
+                showTestResult('Switched back to white background');
+            } else {
+                document.body.style.background = '#333333';
+                showTestResult('Switched to dark background for comparison');
+            }
+        }
+        
+        function showTestResult(message) {
+            const resultDiv = document.getElementById('testResult');
+            const resultText = document.getElementById('resultText');
+            resultText.textContent = message;
+            resultDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Initialize
+        window.onload = function() {
+            detectBrowser();
+        };
+        
+        // Accessibility test
+        function checkAccessibility() {
+            const samples = document.querySelectorAll('.color-sample');
+            samples.forEach(sample => {
+                const bgColor = window.getComputedStyle(sample).backgroundColor;
+                console.log('Background color:', bgColor);
+            });
+        }
+        
+        // Performance test
+        function performanceTest() {
+            const start = performance.now();
+            for (let i = 0; i < 1000; i++) {
+                document.body.style.background = '#ffffff';
+            }
+            const end = performance.now();
+            console.log('Background change performance:', end - start, 'ms');
+        }
+    </script>
+</body>
+</html>

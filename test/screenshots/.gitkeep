@@ -1,0 +1,25 @@
+# Screenshots Directory
+
+This directory is used to store browser compatibility test screenshots for the white background display testing across mainstream browsers.
+
+## Purpose
+- Store screenshots from different browsers (Chrome, Firefox, Safari, Edge, etc.)
+- Document visual consistency of the white background implementation
+- Track any rendering differences or compatibility issues
+- Maintain visual regression testing records
+
+## File Naming Convention
+- `chrome_desktop.png` - Chrome browser on desktop
+- `firefox_desktop.png` - Firefox browser on desktop  
+- `safari_desktop.png` - Safari browser on desktop
+- `edge_desktop.png` - Edge browser on desktop
+- `chrome_mobile.png` - Chrome browser on mobile
+- `firefox_mobile.png` - Firefox browser on mobile
+- `safari_mobile.png` - Safari browser on mobile
+
+## Test Focus Areas
+- White background color rendering (`#ffffff`)
+- Semi-transparent container background (`rgba(255, 255, 255, 0.9)`)
+- Backdrop filter blur effect compatibility
+- Box shadow rendering consistency
+- Overall visual appearance across different browsers
