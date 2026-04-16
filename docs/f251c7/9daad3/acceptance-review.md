@@ -8,7 +8,7 @@
 | 状态 | acceptance_passed |
 
 ## 反馈
-页面创建成功，基本功能完全符合需求。HTML5文档结构完整，包含了必要的DOCTYPE、html、head和body标签。页面标题设置为'Hello World Page'，包含了基本的meta信息如字符编码和视口设置。页面能够正常打开并显示'Hello, World!'文本内容。代码结构清晰，符合HTML5标准规范。
+页面创建成功，基本功能完全符合需求。HTML5文档结构完整，包含了DOCTYPE声明、html标签、head和body部分。页面标题设置为'Hello World Page'，包含了基本的meta信息如字符编码和视口设置。页面能够正常打开并显示'Hello World'文本内容。代码结构清晰，符合HTML5标准。
 
 ## 检查清单
   1. 入口文件（index.html/main.py）是否存在且可运行
