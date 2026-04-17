@@ -130,10 +130,10 @@
             outline: none;
             border-color: #1d4ed8;
             box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
-            background: white;
+            background: rgba(255, 255, 255, 1);
         }
 
-        .input-button {
+        .submit-btn {
             padding: 12px 24px;
             background: linear-gradient(45deg, #1d4ed8, #3730a3);
             color: white;
@@ -146,7 +146,7 @@
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
         }
 
-        .input-button:hover {
+        .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
         }
@@ -163,8 +163,8 @@
         <h1 class="hello-world">Hello World!</h1>
         <p class="subtitle">Welcome to our amazing web experience</p>
         <p class="welcome-text">
-            This is a beautifully designed Hello World page that showcases modern web development techniques. 
-            Experience the perfect blend of simplicity and elegance in web design.
+            This is a beautifully designed Hello World page that demonstrates modern web development techniques. 
+            Experience the perfect blend of aesthetics and functionality.
         </p>
         <a href="#" class="cta-button">Get Started</a>
         
@@ -172,7 +172,8 @@
             <div class="input-group">
                 <input type="text" class="input-field" placeholder="Enter your name" id="nameInput">
                 <input type="email" class="input-field" placeholder="Enter your email" id="emailInput">
-                <button class="input-button" onclick="handleSubmit()">Submit</button>
+                <textarea class="input-field" placeholder="Your message" rows="4" id="messageInput"></textarea>
+                <button class="submit-btn" onclick="handleSubmit()">Submit</button>
             </div>
         </div>
     </div>
@@ -181,13 +182,16 @@
         function handleSubmit() {
             const name = document.getElementById('nameInput').value;
             const email = document.getElementById('emailInput').value;
+            const message = document.getElementById('messageInput').value;
             
-            if (name && email) {
-                alert(`Thank you, ${name}! We'll contact you at ${email}.`);
+            if (name && email && message) {
+                alert(`Thank you ${name}! Your message has been received.`);
+                // Clear the form
                 document.getElementById('nameInput').value = '';
                 document.getElementById('emailInput').value = '';
+                document.getElementById('messageInput').value = '';
             } else {
-                alert('Please fill in both fields.');
+                alert('Please fill in all fields.');
             }
         }
     </script>

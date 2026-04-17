@@ -3,7 +3,7 @@
 > 2026-04-17 22:35 | LLM
 
 ## 产出文件
-- [index.html](/app#repo?file=index.html) (5906 chars)
+- [index.html](/app#repo?file=index.html) (6210 chars)
 
 ## 自测: 自测 6/6 通过 ✅
 
@@ -22,7 +22,7 @@
 ```diff
 --- a/index.html
 +++ b/index.html
-@@ -100,5 +100,96 @@
+@@ -100,5 +100,100 @@
  
 
          .cta-button:hover {
@@ -31,7 +31,7 @@
 
 -            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.
 
--... (truncated, 6315 chars)
+-... (truncated, 5906 chars)
 +            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
 
 +        }
@@ -92,13 +92,13 @@
 
 +            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
 
-+            background: white;
++            background: rgba(255, 255, 255, 1);
 
 +        }
 
 +
 
-+        .input-button {
++        .submit-btn {
 
 +            padding: 12px 24px;
 
@@ -116,10 +116,10 @@
 
 +            cursor: pointer;
 
-... (共 101 行变更)
+... (共 105 行变更)
 ```
 
 ## 页面预览截图
 
-![开发自测 — 在HelloWorld页面底部添加输入框组件](screenshots/dev_1776436520.png)
+![开发自测 — 在HelloWorld页面底部添加输入框组件](screenshots/dev_1776436551.png)
 
