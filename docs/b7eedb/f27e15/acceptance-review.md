@@ -18,7 +18,7 @@
 
 ## 运行效果截图
 
-![验收截图](screenshots/acceptance_1776403095.png)
+![验收截图](screenshots/acceptance_1776403107.png)
 
 ## 问题
 - 缺少访问计数器显示功能
