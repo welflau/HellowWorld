@@ -116,26 +116,15 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
         }
-
-        @media (max-width: 768px) {
-            .hello-world {
-                font-size: 2.5rem;
-            }
-            
-            .container {
-                padding: 40px 30px;
-                margin: 10px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="hello-world">Hello World!</h1>
-        <p class="subtitle">Welcome to our amazing website</p>
+        <p class="subtitle">Welcome to our amazing web page</p>
         <p class="welcome-text">
-            This is a simple Hello World page with beautiful styling and animations. 
-            We're glad you're here! Explore and enjoy your stay.
+            This is a simple yet elegant Hello World page designed to showcase modern web development techniques. 
+            We hope you enjoy your visit and find everything you're looking for.
         </p>
         
         <div class="visitor-counter">
@@ -149,24 +138,29 @@
     <script>
         // 访问计数功能
         function updateVisitorCount() {
-            // 从localStorage获取访问次数
+            // 从 localStorage 获取当前访问次数
             let count = localStorage.getItem('visitorCount');
             
             if (count === null) {
-                count = 1;
+                count = 0;
             } else {
-                count = parseInt(count) + 1;
+                count = parseInt(count);
             }
             
-            // 保存新的访问次数
+            // 增加访问次数
+            count++;
+            
+            // 保存到 localStorage
             localStorage.setItem('visitorCount', count);
             
-            // 显示访问次数
+            // 更新显示
             document.getElementById('visitorCount').textContent = count;
         }
 
         // 页面加载时更新访问计数
-        window.addEventListener('load', updateVisitorCount);
+        document.addEventListener('DOMContentLoaded', function() {
+            updateVisitorCount();
+        });
     </script>
 </body>
 </html>
