@@ -114,17 +114,17 @@
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="hello-world">Hello World!</h1>
-        <p class="subtitle">Welcome to our amazing web page</p>
+        <p class="subtitle">Welcome to our amazing web experience</p>
         <p class="welcome-text">
-            This is a simple yet elegant Hello World page designed to showcase modern web development techniques. 
-            We hope you enjoy your visit and find everything you're looking for.
+            This is a beautifully designed Hello World page that demonstrates modern web development practices. 
+            We're excited to have you here and hope you enjoy exploring what we have to offer.
         </p>
         
         <div class="visitor-counter">
@@ -138,29 +138,24 @@
     <script>
         // 访问计数功能
         function updateVisitorCount() {
-            // 从 localStorage 获取当前访问次数
+            // 从localStorage获取当前访问次数
             let count = localStorage.getItem('visitorCount');
             
             if (count === null) {
-                count = 0;
+                count = 1;
             } else {
-                count = parseInt(count);
+                count = parseInt(count) + 1;
             }
             
-            // 增加访问次数
-            count++;
-            
-            // 保存到 localStorage
+            // 保存新的访问次数
             localStorage.setItem('visitorCount', count);
             
-            // 更新显示
+            // 显示访问次数
             document.getElementById('visitorCount').textContent = count;
         }
 
         // 页面加载时更新访问计数
-        document.addEventListener('DOMContentLoaded', function() {
-            updateVisitorCount();
-        });
+        window.addEventListener('load', updateVisitorCount);
     </script>
 </body>
 </html>
