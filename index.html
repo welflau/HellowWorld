@@ -106,16 +106,26 @@
             background: linear-gradient(45deg, #1d4ed8, #3730a3);
             color: white;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 10px;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+            box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hello-world {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 40px 30px;
+                margin: 10px;
+            }
         }
     </style>
 </head>
@@ -124,19 +134,22 @@
         <h1 class="hello-world">Hello World!</h1>
         <p class="subtitle">Welcome to our amazing website</p>
         <p class="welcome-text">
-            This is a simple yet elegant Hello World page designed to showcase modern web development techniques.
-            We're glad you're here and hope you enjoy your visit!
+            This is a simple Hello World page with beautiful styling and animations. 
+            We're glad you're here! Explore and enjoy your stay.
         </p>
+        
         <div class="visitor-counter">
-            <span>You are visitor number: <span class="count" id="visitorCount">Loading...</span></span>
+            <span>You are visitor number: </span>
+            <span class="count" id="visitorCount">Loading...</span>
         </div>
+        
         <a href="#" class="cta-button">Get Started</a>
     </div>
 
     <script>
         // 访问计数功能
         function updateVisitorCount() {
-            // 从localStorage获取当前访问次数
+            // 从localStorage获取访问次数
             let count = localStorage.getItem('visitorCount');
             
             if (count === null) {
@@ -153,7 +166,7 @@
         }
 
         // 页面加载时更新访问计数
-        document.addEventListener('DOMContentLoaded', updateVisitorCount);
+        window.addEventListener('load', updateVisitorCount);
     </script>
 </body>
 </html>
