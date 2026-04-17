@@ -108,6 +108,7 @@
             text-decoration: none;
             border-radius: 10px;
             font-weight: bold;
+            font-size: 1rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
         }
@@ -116,15 +117,26 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
         }
+
+        @media (max-width: 768px) {
+            .hello-world {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 40px 20px;
+                margin: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="hello-world">Hello World!</h1>
-        <p class="subtitle">Welcome to our amazing web experience</p>
+        <p class="subtitle">Welcome to our amazing website</p>
         <p class="welcome-text">
-            This is a beautifully designed Hello World page that demonstrates modern web development practices. 
-            We're excited to have you here and hope you enjoy exploring what we have to offer.
+            This is a beautiful Hello World page with modern design and smooth animations. 
+            We're glad you're here and hope you enjoy your visit!
         </p>
         
         <div class="visitor-counter">
@@ -154,8 +166,8 @@
             document.getElementById('visitorCount').textContent = count;
         }
 
-        // 页面加载时更新访问计数
-        window.addEventListener('load', updateVisitorCount);
+        // 页面加载完成后更新访问计数
+        document.addEventListener('DOMContentLoaded', updateVisitorCount);
     </script>
 </body>
 </html>
