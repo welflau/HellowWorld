@@ -104,9 +104,9 @@
         }
 
         .input-section {
-            margin-top: 40px;
+            margin-top: 30px;
             padding-top: 30px;
-            border-top: 1px solid rgba(107, 114, 128, 0.2);
+            border-top: 1px solid #e5e7eb;
         }
 
         .input-group {
@@ -118,7 +118,7 @@
         }
 
         .input-field {
-            padding: 12px 20px;
+            padding: 12px 16px;
             border: 2px solid #e5e7eb;
             border-radius: 10px;
             font-size: 1rem;
@@ -130,11 +130,11 @@
             outline: none;
             border-color: #1d4ed8;
             box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
-            background: rgba(255, 255, 255, 1);
+            background: white;
         }
 
         .input-button {
-            padding: 12px 25px;
+            padding: 12px 24px;
             background: linear-gradient(45deg, #1d4ed8, #3730a3);
             color: white;
             border: none;
@@ -163,18 +163,33 @@
         <h1 class="hello-world">Hello World!</h1>
         <p class="subtitle">Welcome to our amazing web experience</p>
         <p class="welcome-text">
-            This is a beautifully designed Hello World page that demonstrates modern web development techniques. 
-            Experience the perfect blend of aesthetics and functionality.
+            This is a beautifully designed Hello World page that showcases modern web development techniques. 
+            Experience the perfect blend of simplicity and elegance in web design.
         </p>
         <a href="#" class="cta-button">Get Started</a>
         
         <div class="input-section">
             <div class="input-group">
-                <input type="text" class="input-field" placeholder="Enter your name">
-                <input type="email" class="input-field" placeholder="Enter your email">
-                <button class="input-button">Submit</button>
+                <input type="text" class="input-field" placeholder="Enter your name" id="nameInput">
+                <input type="email" class="input-field" placeholder="Enter your email" id="emailInput">
+                <button class="input-button" onclick="handleSubmit()">Submit</button>
             </div>
         </div>
     </div>
+
+    <script>
+        function handleSubmit() {
+            const name = document.getElementById('nameInput').value;
+            const email = document.getElementById('emailInput').value;
+            
+            if (name && email) {
+                alert(`Thank you, ${name}! We'll contact you at ${email}.`);
+                document.getElementById('nameInput').value = '';
+                document.getElementById('emailInput').value = '';
+            } else {
+                alert('Please fill in both fields.');
+            }
+        }
+    </script>
 </body>
 </html>
