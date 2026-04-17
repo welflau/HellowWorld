@@ -1,9 +1,9 @@
 # 开发笔记 — 在HelloWorld页面底部添加输入框组件
 
-> 2026-04-17 22:35 | LLM
+> 2026-04-17 22:36 | LLM
 
 ## 产出文件
-- [index.html](/app#repo?file=index.html) (6210 chars)
+- [index.html](/app#repo?file=index.html) (5910 chars)
 
 ## 自测: 自测 6/6 通过 ✅
 
@@ -22,7 +22,7 @@
 ```diff
 --- a/index.html
 +++ b/index.html
-@@ -100,5 +100,100 @@
+@@ -100,5 +100,95 @@
  
 
          .cta-button:hover {
@@ -68,7 +68,7 @@
 
 +        .input-field {
 
-+            padding: 12px 16px;
++            padding: 12px 20px;
 
 +            border: 2px solid #e5e7eb;
 
@@ -88,38 +88,38 @@
 
 +            outline: none;
 
-+            border-color: #1d4ed8;
++            border-color: #3730a3;
 
-+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
++            box-shadow: 0 0 0 3px rgba(55, 48, 163, 0.1);
 
-+            background: rgba(255, 255, 255, 1);
++            background: white;
 
 +        }
 
 +
 
-+        .submit-btn {
++        .input-label {
 
-+            padding: 12px 24px;
++            font-size: 0.9rem;
 
-+            background: linear-gradient(45deg, #1d4ed8, #3730a3);
++            color: #4b5563;
 
-+            color: white;
++            text-align: left;
 
-+            border: none;
++            font-weight: 500;
 
-+            border-radius: 10px;
++        }
 
-+            font-size: 1rem;
++
 
-+            font-weight: bold;
++        .submit-button {
 
-+            cursor: pointer;
++            padding: 12px 25px;
 
-... (共 105 行变更)
+... (共 100 行变更)
 ```
 
 ## 页面预览截图
 
-![开发自测 — 在HelloWorld页面底部添加输入框组件](screenshots/dev_1776436551.png)
+![开发自测 — 在HelloWorld页面底部添加输入框组件](screenshots/dev_1776436565.png)
 
