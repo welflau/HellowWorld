@@ -104,9 +104,9 @@
         }
 
         .input-section {
-            margin-top: 30px;
+            margin-top: 40px;
             padding-top: 30px;
-            border-top: 1px solid #e5e7eb;
+            border-top: 1px solid rgba(107, 114, 128, 0.2);
         }
 
         .input-group {
@@ -118,7 +118,7 @@
         }
 
         .input-field {
-            padding: 12px 16px;
+            padding: 12px 20px;
             border: 2px solid #e5e7eb;
             border-radius: 10px;
             font-size: 1rem;
@@ -130,15 +130,11 @@
             outline: none;
             border-color: #1d4ed8;
             box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
-            background: white;
+            background: rgba(255, 255, 255, 1);
         }
 
-        .input-field::placeholder {
-            color: #9ca3af;
-        }
-
-        .submit-button {
-            padding: 12px 24px;
+        .input-button {
+            padding: 12px 25px;
             background: linear-gradient(45deg, #1d4ed8, #3730a3);
             color: white;
             border: none;
@@ -150,9 +146,9 @@
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
         }
 
-        .submit-button:hover {
+        .input-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+            box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
         }
 
         @media (max-width: 768px) {
@@ -167,37 +163,18 @@
         <h1 class="hello-world">Hello World!</h1>
         <p class="subtitle">Welcome to our amazing web experience</p>
         <p class="welcome-text">
-            This is a beautifully designed Hello World page that showcases modern web development techniques. 
-            Experience the perfect blend of aesthetics and functionality in this interactive demonstration.
+            This is a beautifully designed Hello World page that demonstrates modern web development techniques. 
+            Experience the perfect blend of aesthetics and functionality.
         </p>
         <a href="#" class="cta-button">Get Started</a>
         
         <div class="input-section">
             <div class="input-group">
-                <input type="text" class="input-field" placeholder="Enter your name" id="nameInput">
-                <input type="email" class="input-field" placeholder="Enter your email" id="emailInput">
-                <textarea class="input-field" placeholder="Leave a message..." id="messageInput" rows="3"></textarea>
-                <button class="submit-button" onclick="handleSubmit()">Submit</button>
+                <input type="text" class="input-field" placeholder="Enter your name">
+                <input type="email" class="input-field" placeholder="Enter your email">
+                <button class="input-button">Submit</button>
             </div>
         </div>
     </div>
-
-    <script>
-        function handleSubmit() {
-            const name = document.getElementById('nameInput').value;
-            const email = document.getElementById('emailInput').value;
-            const message = document.getElementById('messageInput').value;
-            
-            if (name && email && message) {
-                alert(`Thank you, ${name}! Your message has been received.`);
-                // Clear the form
-                document.getElementById('nameInput').value = '';
-                document.getElementById('emailInput').value = '';
-                document.getElementById('messageInput').value = '';
-            } else {
-                alert('Please fill in all fields.');
-            }
-        }
-    </script>
 </body>
 </html>
