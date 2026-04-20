@@ -110,65 +110,27 @@
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
         }
-
-        .features {
-            margin-top: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-        }
-
-        .feature {
-            padding: 20px;
-            background: rgba(29, 78, 216, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(29, 78, 216, 0.1);
-        }
-
-        .feature h3 {
-            color: #1d4ed8;
-            margin-bottom: 10px;
-        }
-
-        .feature p {
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 <body>
-    <div class="digital-clock" id="digitalClock"></div>
-    
+    <div class="digital-clock" id="digitalClock">
+        00:00:00
+    </div>
+
     <div class="container">
         <h1 class="hello-world">Hello World!</h1>
         <p class="subtitle">Welcome to our amazing web experience</p>
         <p class="welcome-text">
-            This is a beautifully designed Hello World page that showcases modern web development techniques. 
+            This is a beautifully designed Hello World page that demonstrates modern web development techniques. 
             We've combined elegant styling with smooth animations to create an engaging user experience.
         </p>
         <a href="#" class="cta-button">Get Started</a>
-        
-        <div class="features">
-            <div class="feature">
-                <h3>Modern Design</h3>
-                <p>Clean and contemporary styling with beautiful gradients and animations.</p>
-            </div>
-            <div class="feature">
-                <h3>Responsive</h3>
-                <p>Perfectly optimized for all devices and screen sizes.</p>
-            </div>
-            <div class="feature">
-                <h3>Interactive</h3>
-                <p>Engaging hover effects and smooth transitions throughout.</p>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -177,6 +139,7 @@
             const hours = now.getHours().toString().padStart(2, '0');
             const minutes = now.getMinutes().toString().padStart(2, '0');
             const seconds = now.getSeconds().toString().padStart(2, '0');
+            
             const timeString = `${hours}:${minutes}:${seconds}`;
             document.getElementById('digitalClock').textContent = timeString;
         }
