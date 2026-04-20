@@ -106,7 +106,7 @@
             background: linear-gradient(45deg, #1d4ed8, #3730a3);
             color: white;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 10px;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
@@ -114,21 +114,20 @@
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+            box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
         }
     </style>
 </head>
 <body>
-    <div class="digital-clock" id="digitalClock">
-        00:00:00
-    </div>
-
+    <div class="digital-clock" id="digitalClock">00:00:00</div>
+    
     <div class="container">
         <h1 class="hello-world">Hello World!</h1>
         <p class="subtitle">Welcome to our amazing web experience</p>
         <p class="welcome-text">
-            This is a beautifully designed Hello World page that demonstrates modern web development techniques. 
-            We've combined elegant styling with smooth animations to create an engaging user experience.
+            This is a beautifully crafted Hello World page with modern design elements, 
+            smooth animations, and a clean user interface. Explore and enjoy your journey 
+            through the world of web development.
         </p>
         <a href="#" class="cta-button">Get Started</a>
     </div>
@@ -136,9 +135,9 @@
     <script>
         function updateClock() {
             const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
             
             const timeString = `${hours}:${minutes}:${seconds}`;
             document.getElementById('digitalClock').textContent = timeString;
