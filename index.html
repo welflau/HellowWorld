@@ -106,7 +106,7 @@
             background: linear-gradient(45deg, #1d4ed8, #3730a3);
             color: white;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 50px;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
@@ -119,16 +119,14 @@
     </style>
 </head>
 <body>
-    <div class="digital-clock" id="digitalClock">
-        00:00:00
-    </div>
-
+    <div class="digital-clock" id="digitalClock"></div>
+    
     <div class="container">
         <h1 class="hello-world">Hello World!</h1>
         <p class="subtitle">Welcome to our amazing web experience</p>
         <p class="welcome-text">
-            This is a beautifully designed Hello World page that showcases modern web development techniques.
-            Experience the perfect blend of aesthetics and functionality.
+            This is a beautifully designed Hello World page with modern styling and smooth animations. 
+            We're excited to have you here and hope you enjoy exploring what we have to offer.
         </p>
         <a href="#" class="cta-button">Get Started</a>
     </div>
@@ -136,11 +134,12 @@
     <script>
         function updateClock() {
             const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
-            
-            const timeString = `${hours}:${minutes}:${seconds}`;
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
             document.getElementById('digitalClock').textContent = timeString;
         }
 

@@ -1,9 +1,9 @@
 # 开发笔记 — 在HelloWorld页面左上角添加实时数字时钟
 
-> 2026-04-20 12:00 | LLM
+> 2026-04-20 12:01 | LLM
 
 ## 产出文件
-- [index.html](/app#repo?file=index.html) (4544 chars)
+- [index.html](/app#repo?file=index.html) (4459 chars)
 
 ## 自测: 自测 6/6 通过 ✅
 
@@ -22,7 +22,7 @@
 ```diff
 --- a/index.html
 +++ b/index.html
-@@ -103,5 +103,50 @@
+@@ -103,5 +103,49 @@
          .cta-button {
 
              display: inline-block;
@@ -31,14 +31,14 @@
 
 -            backgroun
 
--... (truncated, 4571 chars)
+-... (truncated, 4544 chars)
 +            background: linear-gradient(45deg, #1d4ed8, #3730a3);
 
 +            color: white;
 
 +            text-decoration: none;
 
-+            border-radius: 10px;
++            border-radius: 50px;
 
 +            font-weight: bold;
 
@@ -64,13 +64,9 @@
 
 +<body>
 
-+    <div class="digital-clock" id="digitalClock">
++    <div class="digital-clock" id="digitalClock"></div>
 
-+        00:00:00
-
-+    </div>
-
-+
++    
 
 +    <div class="container">
 
@@ -80,9 +76,9 @@
 
 +        <p class="welcome-text">
 
-+            This is a beautifully designed Hello World page that showcases modern web development techniques.
++            This is a beautifully designed Hello World page with modern styling and smooth animations. 
 
-+            Experience the perfect blend of aesthetics and functionality.
++            We're excited to have you here and hope you enjoy exploring what we have to offer.
 
 +        </p>
 
@@ -98,15 +94,17 @@
 
 +            const now = new Date();
 
-+            const hours = now.getHours().toString().padStart(2, '0');
++            const timeString = now.toLocaleTimeString('en-US', {
 
-+            const minutes = now.getMinutes().toString().padStart(2, '0');
++                hour12: false,
 
-+            const seconds = now.getSeconds().toString().padStart(2, '0');
++                hour: '2-digit',
 
-+            
++                minute: '2-digit',
 
-+            const timeString = `${hours}:${minutes}:${seconds}`;
++                second: '2-digit'
+
++            });
 
 +            document.getElementById('digitalClock').textContent = timeString;
 
@@ -116,10 +114,12 @@
 
 +        // 更新时钟
 
-... (共 55 行变更)
++        updateClock();
+
+... (共 54 行变更)
 ```
 
 ## 页面预览截图
 
-![开发自测 — 在HelloWorld页面左上角添加实时数字时钟](screenshots/dev_1776657626.png)
+![开发自测 — 在HelloWorld页面左上角添加实时数字时钟](screenshots/dev_1776657677.png)
 
