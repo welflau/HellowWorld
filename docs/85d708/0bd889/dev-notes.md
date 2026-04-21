@@ -3,7 +3,7 @@
 > 2026-04-21 17:18 | LLM
 
 ## 产出文件
-- [index.html](/app#repo?file=index.html) (7775 chars)
+- [index.html](/app#repo?file=index.html) (7046 chars)
 
 ## 自测: 自测 6/6 通过 ✅
 
@@ -39,7 +39,7 @@
 
 +
 
-+        .content-wrapper {
++        .content {
 
              min-height: 100vh;
 
@@ -59,7 +59,7 @@
 
          .digital-clock {
 
-@@ -103,5 +107,146 @@
+@@ -103,5 +107,119 @@
  
 
          .cta-button {
@@ -81,13 +81,9 @@
 
 +            font-weight: bold;
 
-+            font-size: 1.1rem;
-
 +            transition: all 0.3s ease;
 
-+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.4);
-
-+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
++            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
 
 +        }
 
@@ -97,7 +93,7 @@
 
 +            transform: translateY(-2px);
 
-+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.6);
++            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
 
 +        }
 
@@ -115,10 +111,14 @@
 
 +            height: 50px;
 
-... (共 170 行变更)
++            background: linear-gradient(45deg, #1d4ed8, #3730a3);
+
++            color: white;
+
+... (共 143 行变更)
 ```
 
 ## 页面预览截图
 
-![开发自测 — 添加返回顶部按钮功能](screenshots/dev_1776763103.png)
+![开发自测 — 添加返回顶部按钮功能](screenshots/dev_1776763110.png)
 
