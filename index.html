@@ -109,70 +109,110 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+            background: linear-gradient(45deg, #3730a3, #1d4ed8);
         }
 
-        .features {
-            margin-top: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #1d4ed8, #3730a3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .feature {
-            padding: 20px;
-            background: rgba(29, 78, 216, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(29, 78, 216, 0.1);
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .feature h3 {
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+            background: linear-gradient(45deg, #3730a3, #1d4ed8);
+        }
+
+        .content-section {
+            margin: 100vh 0;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .content-section h2 {
+            font-size: 2.5rem;
             color: #1d4ed8;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
-        .feature p {
-            color: #6b7280;
-            font-size: 0.9rem;
+        .content-section p {
+            font-size: 1.1rem;
+            color: #4b5563;
+            line-height: 1.8;
         }
     </style>
 </head>
 <body>
-    <div class="digital-clock" id="digitalClock"></div>
+    <div class="digital-clock" id="clock"></div>
     
     <div class="container">
         <h1 class="hello-world">Hello World!</h1>
         <p class="subtitle">Welcome to our amazing web experience</p>
         <p class="welcome-text">
-            This is a beautifully designed Hello World page that showcases modern web development techniques. 
-            Experience the perfect blend of aesthetics and functionality.
+            This is a beautifully designed Hello World page with modern styling, 
+            smooth animations, and a live digital clock. Experience the perfect 
+            blend of simplicity and elegance.
         </p>
         <a href="#" class="cta-button">Get Started</a>
-        
-        <div class="features">
-            <div class="feature">
-                <h3>Modern Design</h3>
-                <p>Clean and contemporary styling with smooth animations</p>
-            </div>
-            <div class="feature">
-                <h3>Responsive</h3>
-                <p>Perfectly adapts to all screen sizes and devices</p>
-            </div>
-            <div class="feature">
-                <h3>Interactive</h3>
-                <p>Engaging hover effects and smooth transitions</p>
-            </div>
-        </div>
     </div>
 
+    <div class="content-section">
+        <h2>Section 1</h2>
+        <p>This is additional content to demonstrate the back to top functionality. Scroll down to see more sections and test the back to top button.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Section 2</h2>
+        <p>More content here. The back to top button will appear when you scroll down and help you quickly return to the top of the page.</p>
+    </div>
+
+    <div class="content-section">
+        <h2>Section 3</h2>
+        <p>Final section. Click the back to top button to smoothly scroll back to the beginning of the page.</p>
+    </div>
+
+    <button class="back-to-top" id="backToTop" title="Back to top">
+        ↑
+    </button>
+
     <script>
+        // Digital Clock
         function updateClock() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('en-US', {
@@ -181,12 +221,32 @@
                 minute: '2-digit',
                 second: '2-digit'
             });
-            document.getElementById('digitalClock').textContent = timeString;
+            document.getElementById('clock').textContent = timeString;
         }
 
-        // 更新时钟
-        updateClock();
+        // Update clock every second
         setInterval(updateClock, 1000);
+        updateClock(); // Initial call
+
+        // Back to top functionality
+        const backToTopButton = document.getElementById('backToTop');
+
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // Smooth scroll to top when button is clicked
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     </script>
 </body>
 </html>
