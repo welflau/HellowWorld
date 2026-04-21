@@ -17,12 +17,16 @@
         body {
             font-family: 'Arial', sans-serif;
             background: #2563eb;
+            min-height: 200vh;
+            color: #333;
+            position: relative;
+        }
+
+        .content {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
-            position: relative;
         }
 
         .digital-clock {
@@ -111,7 +115,6 @@
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .cta-button:hover {
@@ -119,60 +122,73 @@
             box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
         }
 
-        .features {
-            margin-top: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #1d4ed8, #3730a3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
         }
 
-        .feature {
-            padding: 20px;
-            background: rgba(29, 78, 216, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(29, 78, 216, 0.1);
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .feature h3 {
-            color: #1d4ed8;
-            margin-bottom: 10px;
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
         }
 
-        .feature p {
-            color: #6b7280;
-            font-size: 0.9rem;
+        .extra-content {
+            padding: 100px 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 50px 20px;
+            border-radius: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="digital-clock" id="digitalClock"></div>
+    <div class="digital-clock" id="clock"></div>
     
-    <div class="container">
-        <h1 class="hello-world">Hello World!</h1>
-        <p class="subtitle">Welcome to our amazing web experience</p>
-        <p class="welcome-text">
-            This is a beautifully designed Hello World page that showcases modern web development techniques. 
-            Experience the perfect blend of aesthetics and functionality.
-        </p>
-        <a href="#" class="cta-button">Get Started</a>
-        
-        <div class="features">
-            <div class="feature">
-                <h3>Modern Design</h3>
-                <p>Clean and contemporary styling with smooth animations</p>
-            </div>
-            <div class="feature">
-                <h3>Responsive</h3>
-                <p>Perfectly adapts to all screen sizes and devices</p>
-            </div>
-            <div class="feature">
-                <h3>Interactive</h3>
-                <p>Engaging hover effects and smooth transitions</p>
-            </div>
+    <div class="content">
+        <div class="container">
+            <h1 class="hello-world">Hello World!</h1>
+            <p class="subtitle">Welcome to our amazing web experience</p>
+            <p class="welcome-text">
+                This is a beautifully designed Hello World page with modern styling, 
+                smooth animations, and a live digital clock. Experience the perfect 
+                blend of simplicity and elegance.
+            </p>
+            <a href="#" class="cta-button">Get Started</a>
         </div>
     </div>
 
+    <div class="extra-content">
+        <h2>More Content Below</h2>
+        <p>This is additional content to demonstrate the back to top functionality. Scroll down to see more content and then use the back to top button to return to the beginning of the page.</p>
+        <br><br>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <br><br>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+
+    <button class="back-to-top" id="backToTop" title="Back to top">↑</button>
+
     <script>
+        // Digital Clock
         function updateClock() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('en-US', {
@@ -181,12 +197,29 @@
                 minute: '2-digit',
                 second: '2-digit'
             });
-            document.getElementById('digitalClock').textContent = timeString;
+            document.getElementById('clock').textContent = timeString;
         }
 
-        // 更新时钟
-        updateClock();
         setInterval(updateClock, 1000);
+        updateClock();
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     </script>
 </body>
 </html>
