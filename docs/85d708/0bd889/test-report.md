@@ -30,7 +30,7 @@
 
 | 检查项 | 结果 | 说明 |
 |--------|------|------|
-| HTTP 可访问 | ✅ | GET / → 200 (2561ms, 7272 bytes) |
+| HTTP 可访问 | ✅ | GET / → 200 (263ms, 7272 bytes) |
 | HTML 结构完整 | ✅ | 包含 <html> 标签 |
 | 页面标题 | ✅ | <title>Hello World - Welcome Page</title> |
 | 页面内容 | ✅ | body 内容 2542 字符 |
@@ -68,7 +68,7 @@ python.exe -m pytest: error: unrecognized arguments: --timeout=30
 
 ### 测试截图
 
-![测试截图](screenshots/test_1776763160.png)
+![测试截图](screenshots/test_1776763158.png)
 
 
 ---
