@@ -17,12 +17,16 @@
         body {
             font-family: 'Arial', sans-serif;
             background: #2563eb;
+            min-height: 200vh;
+            color: #333;
+            position: relative;
+        }
+
+        .content-wrapper {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
-            position: relative;
         }
 
         .digital-clock {
@@ -111,15 +115,13 @@
             font-weight: bold;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.4);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
-            background: linear-gradient(45deg, #3730a3, #1d4ed8);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.6);
         }
 
         .back-to-top {
@@ -134,14 +136,11 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.4);
             transition: all 0.3s ease;
             opacity: 0;
             visibility: hidden;
             z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .back-to-top.show {
@@ -150,72 +149,74 @@
         }
 
         .back-to-top:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
-            background: linear-gradient(45deg, #3730a3, #1d4ed8);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.6);
         }
 
-        .content-section {
-            margin: 100vh 0;
-            padding: 60px 40px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+        .extra-content {
+            padding: 100px 20px;
             text-align: center;
+            color: white;
         }
 
-        .content-section h2 {
-            font-size: 2.5rem;
-            color: #1d4ed8;
+        .extra-content h2 {
+            font-size: 2rem;
             margin-bottom: 20px;
         }
 
-        .content-section p {
+        .extra-content p {
             font-size: 1.1rem;
-            color: #4b5563;
-            line-height: 1.8;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
     <div class="digital-clock" id="clock"></div>
     
-    <div class="container">
-        <h1 class="hello-world">Hello World!</h1>
-        <p class="subtitle">Welcome to our amazing web experience</p>
-        <p class="welcome-text">
-            This is a beautifully designed Hello World page with modern styling, 
-            smooth animations, and a live digital clock. Experience the perfect 
-            blend of simplicity and elegance.
+    <div class="content-wrapper">
+        <div class="container">
+            <h1 class="hello-world">Hello World!</h1>
+            <p class="subtitle">Welcome to our amazing web experience</p>
+            <p class="welcome-text">
+                This is a beautifully crafted Hello World page that demonstrates modern web design principles. 
+                Experience the perfect blend of aesthetics and functionality with smooth animations, 
+                elegant typography, and responsive design that works seamlessly across all devices.
+            </p>
+            <a href="#" class="cta-button">Get Started</a>
+        </div>
+    </div>
+
+    <div class="extra-content">
+        <h2>More Content Below</h2>
+        <p>
+            This additional content demonstrates the back-to-top functionality. 
+            Scroll down to see more content, and notice how the back-to-top button 
+            appears when you scroll down from the initial view. The button provides 
+            a smooth scrolling experience back to the top of the page.
         </p>
-        <a href="#" class="cta-button">Get Started</a>
+        <br><br>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod 
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <br><br>
+        <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore 
+            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
+            sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
     </div>
 
-    <div class="content-section">
-        <h2>Section 1</h2>
-        <p>This is additional content to demonstrate the back to top functionality. Scroll down to see more sections and test the back to top button.</p>
-    </div>
-
-    <div class="content-section">
-        <h2>Section 2</h2>
-        <p>More content here. The back to top button will appear when you scroll down and help you quickly return to the top of the page.</p>
-    </div>
-
-    <div class="content-section">
-        <h2>Section 3</h2>
-        <p>Final section. Click the back to top button to smoothly scroll back to the beginning of the page.</p>
-    </div>
-
-    <button class="back-to-top" id="backToTop" title="Back to top">
-        ↑
-    </button>
+    <button class="back-to-top" id="backToTop" title="Back to top">↑</button>
 
     <script>
         // Digital Clock
         function updateClock() {
             const now = new Date();
-            const timeString = now.toLocaleTimeString('en-US', {
+            const timeString = now.toLocaleTimeString('en-US', { 
                 hour12: false,
                 hour: '2-digit',
                 minute: '2-digit',
@@ -224,11 +225,10 @@
             document.getElementById('clock').textContent = timeString;
         }
 
-        // Update clock every second
         setInterval(updateClock, 1000);
-        updateClock(); // Initial call
+        updateClock();
 
-        // Back to top functionality
+        // Back to Top functionality
         const backToTopButton = document.getElementById('backToTop');
 
         // Show/hide button based on scroll position
