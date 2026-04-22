@@ -17,7 +17,7 @@
         body {
             font-family: 'Arial', sans-serif;
             background: #2563eb;
-            min-height: 200vh;
+            min-height: 300vh;
             color: #333;
             position: relative;
         }
@@ -234,6 +234,143 @@
             margin-bottom: 30px;
         }
 
+        .calendar-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            padding: 40px 20px;
+        }
+
+        .calendar-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 1200px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .calendar-header h2 {
+            font-size: 2.5rem;
+            color: #1d4ed8;
+            margin-bottom: 10px;
+        }
+
+        .year-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .year-btn {
+            background: #1d4ed8;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .year-btn:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        .current-year {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1d4ed8;
+            min-width: 80px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .month-calendar {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .month-calendar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #1d4ed8;
+        }
+
+        .month-header {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1d4ed8;
+            margin-bottom: 15px;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-bottom: 5px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: bold;
+            color: #64748b;
+            font-size: 0.9rem;
+            padding: 8px 4px;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+
+        .day {
+            text-align: center;
+            padding: 8px 4px;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .day:hover {
+            background: #e0e7ff;
+        }
+
+        .day.other-month {
+            color: #cbd5e1;
+        }
+
+        .day.today {
+            background: #1d4ed8;
+            color: white;
+            font-weight: bold;
+        }
+
+        .day.current-month {
+            color: #1e293b;
+        }
+
         @media (max-width: 768px) {
             .hello-world {
                 font-size: 2.5rem;
@@ -265,6 +402,27 @@
             .weekday-display {
                 top: 10px;
                 right: 10px;
+            }
+
+            .calendar-container {
+                padding: 20px;
+            }
+
+            .calendar-header h2 {
+                font-size: 2rem;
+            }
+
+            .calendar-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .year-selector {
+                gap: 15px;
+            }
+
+            .current-year {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -305,10 +463,27 @@
             <h2>Discover More</h2>
             <p>This is the second section of our page, demonstrating smooth scrolling and beautiful gradient backgrounds. Here you can add more content, showcase your projects, or tell your story.</p>
             <p>The possibilities are endless when you combine creativity with modern web development techniques. Every element is carefully crafted to provide the best user experience.</p>
+            <a href="#calendar" class="cta-button">View Calendar</a>
+        </div>
+    </div>
+
+    <div class="calendar-section" id="calendar">
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <h2>Full Year Calendar</h2>
+                <div class="year-selector">
+                    <button class="year-btn" onclick="changeYear(-1)">←</button>
+                    <span class="current-year" id="currentYear"></span>
+                    <button class="year-btn" onclick="changeYear(1)">→</button>
+                </div>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
         </div>
     </div>
 
     <script>
+        let currentCalendarYear = new Date().getFullYear();
+
         function updateDateTime() {
             const now = new Date();
             
@@ -336,9 +511,99 @@
             document.getElementById('weekdayDisplay').textContent = weekdayString;
         }
 
+        function generateCalendar(year) {
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            
+            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const calendarGrid = document.getElementById('calendarGrid');
+            const today = new Date();
+            
+            document.getElementById('currentYear').textContent = year;
+            calendarGrid.innerHTML = '';
+            
+            for (let month = 0; month < 12; month++) {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'month-calendar';
+                
+                // Month header
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'month-header';
+                monthHeader.textContent = monthNames[month];
+                monthDiv.appendChild(monthHeader);
+                
+                // Weekdays header
+                const weekdaysDiv = document.createElement('div');
+                weekdaysDiv.className = 'weekdays';
+                weekdays.forEach(day => {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'weekday';
+                    dayDiv.textContent = day;
+                    weekdaysDiv.appendChild(dayDiv);
+                });
+                monthDiv.appendChild(weekdaysDiv);
+                
+                // Days grid
+                const daysDiv = document.createElement('div');
+                daysDiv.className = 'days';
+                
+                // Get first day of month and number of days
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const daysInPrevMonth = new Date(year, month, 0).getDate();
+                
+                // Previous month's trailing days
+                for (let i = firstDay - 1; i >= 0; i--) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day other-month';
+                    dayDiv.textContent = daysInPrevMonth - i;
+                    daysDiv.appendChild(dayDiv);
+                }
+                
+                // Current month's days
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day current-month';
+                    dayDiv.textContent = day;
+                    
+                    // Highlight today
+                    if (year === today.getFullYear() && 
+                        month === today.getMonth() && 
+                        day === today.getDate()) {
+                        dayDiv.classList.add('today');
+                    }
+                    
+                    daysDiv.appendChild(dayDiv);
+                }
+                
+                // Next month's leading days
+                const totalCells = daysDiv.children.length;
+                const remainingCells = 42 - totalCells; // 6 rows × 7 days
+                for (let day = 1; day <= remainingCells && totalCells < 35; day++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day other-month';
+                    dayDiv.textContent = day;
+                    daysDiv.appendChild(dayDiv);
+                }
+                
+                monthDiv.appendChild(daysDiv);
+                calendarGrid.appendChild(monthDiv);
+            }
+        }
+
+        function changeYear(direction) {
+            currentCalendarYear += direction;
+            generateCalendar(currentCalendarYear);
+        }
+
         // Update immediately and then every second
         updateDateTime();
         setInterval(updateDateTime, 1000);
+
+        // Generate initial calendar
+        generateCalendar(currentCalendarYear);
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
