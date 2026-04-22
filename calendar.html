@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Full Year Calendar View">
+    <meta name="description" content="Full Year Calendar - 12 Month View">
     <meta name="author" content="Developer">
     <title>Calendar - Full Year View</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         * {
             margin: 0;
@@ -19,7 +18,7 @@
             background: #2563eb;
             min-height: 100vh;
             color: #333;
-            position: relative;
+            padding: 20px;
         }
 
         .digital-clock {
@@ -53,14 +52,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .date-display:hover {
-            transform: translateX(-50%) translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            background: rgba(255, 255, 255, 1);
         }
 
         .weekday-display {
@@ -79,79 +70,15 @@
             z-index: 1000;
         }
 
-        .back-button {
-            position: fixed;
-            top: 80px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-family: 'Arial', sans-serif;
-            font-size: 1rem;
-            font-weight: bold;
-            color: #1d4ed8;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            border: none;
-        }
-
-        .back-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            background: rgba(255, 255, 255, 1);
-        }
-
         .calendar-container {
-            padding: 120px 20px 40px;
             max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .calendar-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .year-title {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ffffff, #e2e8f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
-        }
-
-        .year-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.2rem;
-        }
-
-        .months-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .month-card {
+            margin: 80px auto 20px;
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .month-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            animation: fadeInUp 1s ease-out;
         }
 
         @keyframes fadeInUp {
@@ -165,25 +92,66 @@
             }
         }
 
-        .month-header {
+        .year-title {
             text-align: center;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #1d4ed8, #3730a3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            animation: pulse 2s ease-in-out infinite alternate;
         }
 
-        .month-name {
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .month {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .month:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #1d4ed8;
+        }
+
+        .month-title {
+            text-align: center;
             font-size: 1.5rem;
             font-weight: bold;
             color: #1d4ed8;
-            margin-bottom: 5px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
         }
 
-        .calendar-grid {
+        .weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 2px;
+            margin-bottom: 5px;
         }
 
-        .day-header {
+        .weekday {
             text-align: center;
             font-weight: bold;
             color: #64748b;
@@ -191,110 +159,139 @@
             font-size: 0.9rem;
         }
 
-        .day-cell {
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+
+        .day {
+            text-align: center;
+            padding: 8px 4px;
             font-size: 0.9rem;
-            cursor: pointer;
+            border-radius: 5px;
             transition: all 0.2s ease;
-            border-radius: 4px;
+            cursor: pointer;
         }
 
-        .day-cell:hover {
-            background: #e0e7ff;
-            transform: scale(1.1);
+        .day:hover {
+            background: #e2e8f0;
         }
 
-        .day-cell.other-month {
+        .day.other-month {
             color: #cbd5e1;
         }
 
-        .day-cell.today {
+        .day.today {
             background: #1d4ed8;
             color: white;
             font-weight: bold;
         }
 
-        .day-cell.today:hover {
-            background: #1e40af;
-        }
-
-        .day-cell.weekend {
+        .day.weekend {
             color: #dc2626;
         }
 
-        .day-cell.weekend.other-month {
-            color: #fca5a5;
+        .navigation {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-button {
+            background: linear-gradient(45deg, #1d4ed8, #3730a3);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+        }
+
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #1d4ed8, #3730a3);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
         }
 
         @media (max-width: 768px) {
             .calendar-container {
-                padding: 100px 10px 20px;
+                margin: 80px 10px 20px;
+                padding: 20px;
             }
-
+            
             .year-title {
                 font-size: 2rem;
             }
-
+            
             .months-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-
-            .month-card {
+            
+            .month {
                 padding: 15px;
             }
-
-            .month-name {
+            
+            .month-title {
                 font-size: 1.3rem;
             }
-
-            .day-cell {
-                font-size: 0.8rem;
-            }
-
-            .digital-clock, .date-display, .weekday-display, .back-button {
-                font-size: 0.9rem;
+            
+            .digital-clock, .date-display, .weekday-display {
+                font-size: 1rem;
                 padding: 8px 12px;
             }
-
-            .digital-clock, .back-button {
+            
+            .digital-clock {
                 top: 10px;
                 left: 10px;
             }
-
-            .back-button {
-                top: 50px;
-            }
-
+            
             .date-display {
                 top: 10px;
             }
-
+            
             .weekday-display {
                 top: 10px;
                 right: 10px;
             }
+            
+            .back-button {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+            }
         }
 
         @media (max-width: 480px) {
-            .months-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .month-card {
-                padding: 10px;
-            }
-
-            .day-cell {
-                font-size: 0.7rem;
-            }
-
-            .day-header {
-                font-size: 0.8rem;
+            .weekday, .day {
                 padding: 6px 2px;
+                font-size: 0.8rem;
+            }
+            
+            .month-title {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -303,25 +300,35 @@
     <div class="digital-clock" id="digitalClock"></div>
     <div class="date-display" id="dateDisplay"></div>
     <div class="weekday-display" id="weekdayDisplay"></div>
-    <button class="back-button" onclick="goBack()">← Back</button>
     
     <div class="calendar-container">
-        <div class="calendar-header">
-            <h1 class="year-title" id="yearTitle">2024</h1>
-            <p class="year-subtitle">Full Year Calendar View</p>
+        <div class="navigation">
+            <button class="nav-button" onclick="changeYear(-1)">← Previous Year</button>
+            <button class="nav-button" onclick="changeYear(1)">Next Year →</button>
         </div>
         
+        <h1 class="year-title" id="yearTitle">2024</h1>
+        
         <div class="months-grid" id="monthsGrid">
-            <!-- Calendar months will be generated by JavaScript -->
+            <!-- Months will be generated by JavaScript -->
         </div>
     </div>
+    
+    <a href="index.html" class="back-button">← Back to Home</a>
 
     <script>
-        // 更新时钟和日期显示
+        let currentYear = new Date().getFullYear();
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        const weekdayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const weekdayNamesFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
         function updateDateTime() {
             const now = new Date();
             
-            // 更新时钟
+            // Update digital clock
             const timeString = now.toLocaleTimeString('en-US', { 
                 hour12: false,
                 hour: '2-digit',
@@ -330,7 +337,7 @@
             });
             document.getElementById('digitalClock').textContent = timeString;
             
-            // 更新日期
+            // Update date display
             const dateString = now.toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: '2-digit',
@@ -338,140 +345,121 @@
             });
             document.getElementById('dateDisplay').textContent = dateString;
             
-            // 更新星期
-            const weekdayString = now.toLocaleDateString('en-US', { 
-                weekday: 'long' 
-            });
+            // Update weekday display
+            const weekdayString = weekdayNamesFull[now.getDay()];
             document.getElementById('weekdayDisplay').textContent = weekdayString;
         }
 
-        // 日期点击事件 - 跳转回主页
-        document.getElementById('dateDisplay').addEventListener('click', function() {
-            window.location.href = 'index.html';
-        });
-
-        // 返回按钮功能
-        function goBack() {
-            window.location.href = 'index.html';
+        function getDaysInMonth(year, month) {
+            return new Date(year, month + 1, 0).getDate();
         }
 
-        // 生成日历
-        function generateCalendar() {
-            const currentYear = new Date().getFullYear();
+        function getFirstDayOfMonth(year, month) {
+            return new Date(year, month, 1).getDay();
+        }
+
+        function isToday(year, month, day) {
             const today = new Date();
+            return year === today.getFullYear() && 
+                   month === today.getMonth() && 
+                   day === today.getDate();
+        }
+
+        function isWeekend(dayOfWeek) {
+            return dayOfWeek === 0 || dayOfWeek === 6; // Sunday or Saturday
+        }
+
+        function generateMonth(year, month) {
+            const monthDiv = document.createElement('div');
+            monthDiv.className = 'month';
             
-            document.getElementById('yearTitle').textContent = currentYear;
+            // Month title
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'month-title';
+            titleDiv.textContent = monthNames[month];
+            monthDiv.appendChild(titleDiv);
             
+            // Weekdays header
+            const weekdaysDiv = document.createElement('div');
+            weekdaysDiv.className = 'weekdays';
+            weekdayNames.forEach(day => {
+                const weekdayDiv = document.createElement('div');
+                weekdayDiv.className = 'weekday';
+                weekdayDiv.textContent = day;
+                weekdaysDiv.appendChild(weekdayDiv);
+            });
+            monthDiv.appendChild(weekdaysDiv);
+            
+            // Days grid
+            const daysDiv = document.createElement('div');
+            daysDiv.className = 'days';
+            
+            const daysInMonth = getDaysInMonth(year, month);
+            const firstDay = getFirstDayOfMonth(year, month);
+            const daysInPrevMonth = getDaysInMonth(year, month - 1);
+            
+            // Previous month's trailing days
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'day other-month';
+                dayDiv.textContent = daysInPrevMonth - i;
+                daysDiv.appendChild(dayDiv);
+            }
+            
+            // Current month's days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'day';
+                dayDiv.textContent = day;
+                
+                const dayOfWeek = (firstDay + day - 1) % 7;
+                
+                if (isToday(year, month, day)) {
+                    dayDiv.classList.add('today');
+                } else if (isWeekend(dayOfWeek)) {
+                    dayDiv.classList.add('weekend');
+                }
+                
+                daysDiv.appendChild(dayDiv);
+            }
+            
+            // Next month's leading days
+            const totalCells = daysDiv.children.length;
+            const remainingCells = 42 - totalCells; // 6 rows × 7 days
+            for (let day = 1; day <= remainingCells && totalCells < 35; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'day other-month';
+                dayDiv.textContent = day;
+                daysDiv.appendChild(dayDiv);
+            }
+            
+            monthDiv.appendChild(daysDiv);
+            return monthDiv;
+        }
+
+        function generateCalendar(year) {
             const monthsGrid = document.getElementById('monthsGrid');
-            const monthNames = [
-                'January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
-            ];
+            const yearTitle = document.getElementById('yearTitle');
             
-            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            
+            yearTitle.textContent = year;
             monthsGrid.innerHTML = '';
             
             for (let month = 0; month < 12; month++) {
-                const monthCard = document.createElement('div');
-                monthCard.className = 'month-card';
-                monthCard.style.animationDelay = `${month * 0.1}s`;
-                
-                const monthHeader = document.createElement('div');
-                monthHeader.className = 'month-header';
-                
-                const monthName = document.createElement('div');
-                monthName.className = 'month-name';
-                monthName.textContent = monthNames[month];
-                
-                monthHeader.appendChild(monthName);
-                
-                const calendarGrid = document.createElement('div');
-                calendarGrid.className = 'calendar-grid';
-                
-                // 添加星期标题
-                dayNames.forEach(day => {
-                    const dayHeader = document.createElement('div');
-                    dayHeader.className = 'day-header';
-                    dayHeader.textContent = day;
-                    calendarGrid.appendChild(dayHeader);
-                });
-                
-                // 获取月份信息
-                const firstDay = new Date(currentYear, month, 1);
-                const lastDay = new Date(currentYear, month + 1, 0);
-                const firstDayWeekday = firstDay.getDay();
-                const daysInMonth = lastDay.getDate();
-                
-                // 添加上个月的日期
-                const prevMonth = new Date(currentYear, month, 0);
-                const daysInPrevMonth = prevMonth.getDate();
-                
-                for (let i = firstDayWeekday - 1; i >= 0; i--) {
-                    const dayCell = document.createElement('div');
-                    dayCell.className = 'day-cell other-month';
-                    dayCell.textContent = daysInPrevMonth - i;
-                    calendarGrid.appendChild(dayCell);
-                }
-                
-                // 添加当前月的日期
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const dayCell = document.createElement('div');
-                    const currentDate = new Date(currentYear, month, day);
-                    const dayOfWeek = currentDate.getDay();
-                    
-                    dayCell.className = 'day-cell';
-                    dayCell.textContent = day;
-                    
-                    // 标记周末
-                    if (dayOfWeek === 0 || dayOfWeek === 6) {
-                        dayCell.classList.add('weekend');
-                    }
-                    
-                    // 标记今天
-                    if (currentDate.toDateString() === today.toDateString()) {
-                        dayCell.classList.add('today');
-                    }
-                    
-                    // 添加点击事件
-                    dayCell.addEventListener('click', function() {
-                        // 可以在这里添加日期点击的处理逻辑
-                        console.log(`Clicked on ${monthNames[month]} ${day}, ${currentYear}`);
-                    });
-                    
-                    calendarGrid.appendChild(dayCell);
-                }
-                
-                // 添加下个月的日期以填满网格
-                const totalCells = calendarGrid.children.length;
-                const remainingCells = 42 - (totalCells - 7); // 6行 x 7列 - 星期标题行
-                
-                for (let day = 1; day <= remainingCells; day++) {
-                    const dayCell = document.createElement('div');
-                    dayCell.className = 'day-cell other-month';
-                    dayCell.textContent = day;
-                    
-                    const nextMonthDate = new Date(currentYear, month + 1, day);
-                    const dayOfWeek = nextMonthDate.getDay();
-                    
-                    if (dayOfWeek === 0 || dayOfWeek === 6) {
-                        dayCell.classList.add('weekend');
-                    }
-                    
-                    calendarGrid.appendChild(dayCell);
-                }
-                
-                monthCard.appendChild(monthHeader);
-                monthCard.appendChild(calendarGrid);
-                monthsGrid.appendChild(monthCard);
+                const monthElement = generateMonth(year, month);
+                monthsGrid.appendChild(monthElement);
             }
         }
 
-        // 初始化
+        function changeYear(delta) {
+            currentYear += delta;
+            generateCalendar(currentYear);
+        }
+
+        // Initialize
         updateDateTime();
-        generateCalendar();
+        generateCalendar(currentYear);
         
-        // 每秒更新时间
+        // Update time every second
         setInterval(updateDateTime, 1000);
     </script>
 </body>
