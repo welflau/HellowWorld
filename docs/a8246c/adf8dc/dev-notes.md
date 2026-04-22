@@ -1,9 +1,9 @@
 # 开发笔记 — 实现日期点击交互和页面跳转逻辑
 
-> 2026-04-22 16:47 | LLM
+> 2026-04-22 16:49 | LLM
 
 ## 产出文件
-- [index.html](/app#repo?file=index.html) (20302 chars)
+- [index.html](/app#repo?file=index.html) (21536 chars)
 
 ## 自测: 自测 7/7 通过 ✅
 
@@ -23,61 +23,29 @@
 ```diff
 --- a/index.html
 +++ b/index.html
-@@ -379,6 +379,12 @@
-             color: #1e293b;
+@@ -523,6 +523,154 @@
+             const weekdayString = now.toLocaleDateString('en-US', {
 
-         }
+                 weekday: 'long'
 
- 
+             });
 
-+        .day.selected {
+-   
 
-+            background: #10b981;
+-
 
-+            color: white;
-
-+            font-weight: bold;
+-/* ... [文件截断显示：原文 20302 字符，当前只显示前 15000；代码本身完整，保留未显示部分] ... */
++            document.getElementById('weekdayDisplay').textContent = weekdayString;
 
 +        }
 
 +
 
-         @media (max-width: 768px) {
++        function scrollToCalendar() {
 
-             .hello-world {
++            document.getElementById('calendar').scrollIntoView({
 
-                 font-size: 2.5rem;
-
-@@ -491,6 +497,7 @@
- 
-
-     <script>
-
-         let currentCalendarYear = new Date().getFullYear();
-
-+        let selectedDate = null;
-
- 
-
-         function updateDateTime() {
-
-             const now = new Date();
-
-@@ -520,6 +527,128 @@
-         }
-
- 
-
-         function scrollToCalendar() {
-
--            document.getEleme
-
--
-
--/* ... [文件截断显示：原文 19063 字符，当前只显示前 15000；代码本身完整，保留未显示部分] ... */
-+            document.getElementById('calendar').scrollIntoView({ 
-
-+                behavior: 'smooth' 
++                behavior: 'smooth'
 
 +            });
 
@@ -85,11 +53,57 @@
 
 +
 
-+        function changeYear(delta) {
++        function changeYear(direction) {
 
-+            currentCalendarYear += delta;
++            currentCalendarYear += direction;
+
++            document.getElementById('currentYear').textContent = currentCalendarYear;
 
 +            generateCalendar();
+
++        }
+
++
+
++        function selectDate(year, month, day) {
+
++            // Remove previous selection
+
++            const previousSelected = document.querySelector('.day.selected');
+
++            if (previousSelected) {
+
++                previousSelected.classList.remove('selected');
+
++            }
+
++            
+
++            // Add selection to clicked date
+
++            const clickedDate = event.target;
+
++            if (clickedDate.classList.contains('current-month')) {
+
++                clickedDate.classList.add('selected');
+
++                selectedDate = { year, month, day };
+
++                
+
++                // Create date object and navigate to date page
+
++                const dateObj = new Date(year, month, day);
+
++                const dateString = dateObj.toISOString().split('T')[0]; // YYYY-MM-DD format
+
++                
+
++                // Navigate to date page
+
++                window.location.href = `date.html?date=${dateString}`;
+
++            }
 
 +        }
 
@@ -99,26 +113,14 @@
 
 +            const calendarGrid = document.getElementById('calendarGrid');
 
-+            const currentYearSpan = document.getElementById('currentYear');
++            calendarGrid.innerHTML = '';
 
 +            
 
-+            currentYearSpan.textContent = currentCalendarYear;
-
-+            calendarGrid.innerHTML = '';
-
-+
-
-+            const monthNames = [
-
-+                'January', 'February', 'March', 'April', 'May', 'June',
-
-+                'July', 'August', 'September', 'October', 'November', 'December'
-
-... (共 155 行变更)
+... (共 160 行变更)
 ```
 
 ## 页面预览截图
 
-![开发自测 — 实现日期点击交互和页面跳转逻辑](screenshots/dev_1776847620.png)
+![开发自测 — 实现日期点击交互和页面跳转逻辑](screenshots/dev_1776847737.png)
 
