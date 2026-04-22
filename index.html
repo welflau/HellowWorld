@@ -60,6 +60,14 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .date-display:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         .weekday-display {
@@ -429,7 +437,7 @@
 </head>
 <body>
     <div class="digital-clock" id="digitalClock"></div>
-    <div class="date-display" id="dateDisplay"></div>
+    <div class="date-display" id="dateDisplay" onclick="scrollToCalendar()"></div>
     <div class="weekday-display" id="weekdayDisplay"></div>
     
     <div class="content">
@@ -511,6 +519,12 @@
             document.getElementById('weekdayDisplay').textContent = weekdayString;
         }
 
+        function scrollToCalendar() {
+            document.getElementById('calendar').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
         function generateCalendar(year) {
             const monthNames = [
                 'January', 'February', 'March', 'April', 'May', 'June',
@@ -521,88 +535,72 @@
             const calendarGrid = document.getElementById('calendarGrid');
             const today = new Date();
             
-            document.getElementById('currentYear').textContent = year;
             calendarGrid.innerHTML = '';
             
             for (let month = 0; month < 12; month++) {
-                const monthDiv = document.createElement('div');
-                monthDiv.className = 'month-calendar';
+                const monthContainer = document.createElement('div');
+                monthContainer.className = 'month-calendar';
                 
-                // Month header
                 const monthHeader = document.createElement('div');
                 monthHeader.className = 'month-header';
                 monthHeader.textContent = monthNames[month];
-                monthDiv.appendChild(monthHeader);
+                monthContainer.appendChild(monthHeader);
                 
-                // Weekdays header
-                const weekdaysDiv = document.createElement('div');
-                weekdaysDiv.className = 'weekdays';
+                const weekdaysContainer = document.createElement('div');
+                weekdaysContainer.className = 'weekdays';
                 weekdays.forEach(day => {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.className = 'weekday';
-                    dayDiv.textContent = day;
-                    weekdaysDiv.appendChild(dayDiv);
+                    const weekdayElement = document.createElement('div');
+                    weekdayElement.className = 'weekday';
+                    weekdayElement.textContent = day;
+                    weekdaysContainer.appendChild(weekdayElement);
                 });
-                monthDiv.appendChild(weekdaysDiv);
+                monthContainer.appendChild(weekdaysContainer);
                 
-                // Days grid
-                const daysDiv = document.createElement('div');
-                daysDiv.className = 'days';
+                const daysContainer = document.createElement('div');
+                daysContainer.className = 'days';
                 
-                // Get first day of month and number of days
-                const firstDay = new Date(year, month, 1).getDay();
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const daysInPrevMonth = new Date(year, month, 0).getDate();
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const startDate = new Date(firstDay);
+                startDate.setDate(startDate.getDate() - firstDay.getDay());
                 
-                // Previous month's trailing days
-                for (let i = firstDay - 1; i >= 0; i--) {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.className = 'day other-month';
-                    dayDiv.textContent = daysInPrevMonth - i;
-                    daysDiv.appendChild(dayDiv);
-                }
-                
-                // Current month's days
-                for (let day = 1; day <= daysInMonth; day++) {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.className = 'day current-month';
-                    dayDiv.textContent = day;
+                for (let i = 0; i < 42; i++) {
+                    const currentDate = new Date(startDate);
+                    currentDate.setDate(startDate.getDate() + i);
                     
-                    // Highlight today
-                    if (year === today.getFullYear() && 
-                        month === today.getMonth() && 
-                        day === today.getDate()) {
-                        dayDiv.classList.add('today');
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'day';
+                    dayElement.textContent = currentDate.getDate();
+                    
+                    if (currentDate.getMonth() === month) {
+                        dayElement.classList.add('current-month');
+                    } else {
+                        dayElement.classList.add('other-month');
                     }
                     
-                    daysDiv.appendChild(dayDiv);
+                    if (currentDate.toDateString() === today.toDateString()) {
+                        dayElement.classList.add('today');
+                    }
+                    
+                    daysContainer.appendChild(dayElement);
                 }
                 
-                // Next month's leading days
-                const totalCells = daysDiv.children.length;
-                const remainingCells = 42 - totalCells; // 6 rows × 7 days
-                for (let day = 1; day <= remainingCells && totalCells < 35; day++) {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.className = 'day other-month';
-                    dayDiv.textContent = day;
-                    daysDiv.appendChild(dayDiv);
-                }
-                
-                monthDiv.appendChild(daysDiv);
-                calendarGrid.appendChild(monthDiv);
+                monthContainer.appendChild(daysContainer);
+                calendarGrid.appendChild(monthContainer);
             }
         }
 
         function changeYear(direction) {
             currentCalendarYear += direction;
+            document.getElementById('currentYear').textContent = currentCalendarYear;
             generateCalendar(currentCalendarYear);
         }
 
-        // Update immediately and then every second
+        // Initialize
         updateDateTime();
         setInterval(updateDateTime, 1000);
-
-        // Generate initial calendar
+        
+        document.getElementById('currentYear').textContent = currentCalendarYear;
         generateCalendar(currentCalendarYear);
 
         // Smooth scrolling for anchor links
@@ -612,21 +610,10 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                        behavior: 'smooth'
                     });
                 }
             });
-        });
-
-        // Hide scroll indicator when scrolling
-        window.addEventListener('scroll', function() {
-            const scrollIndicator = document.querySelector('.scroll-indicator');
-            if (window.scrollY > 100) {
-                scrollIndicator.style.opacity = '0';
-            } else {
-                scrollIndicator.style.opacity = '1';
-            }
         });
     </script>
 </body>
