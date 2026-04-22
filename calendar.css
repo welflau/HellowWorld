@@ -1,0 +1,345 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #2563eb;
+    min-height: 100vh;
+    color: #333;
+    position: relative;
+}
+
+.digital-clock {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1d4ed8;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.date-display {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1d4ed8;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.weekday-display {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1d4ed8;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.calendar-container {
+    max-width: 1400px;
+    margin: 100px auto 40px;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calendar-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.year-title {
+    font-size: 3rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #1d4ed8, #3730a3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    animation: pulse 2s ease-in-out infinite alternate;
+    text-shadow: 0 2px 4px rgba(29, 78, 216, 0.3);
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.05);
+    }
+}
+
+.calendar-subtitle {
+    font-size: 1.2rem;
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.month-container {
+    background: #f8fafc;
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.month-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-color: #1d4ed8;
+}
+
+.month-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.month-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #1d4ed8;
+    margin-bottom: 10px;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 5px;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: bold;
+    color: #64748b;
+    font-size: 0.9rem;
+    padding: 8px 4px;
+    background: #e2e8f0;
+    border-radius: 4px;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.day {
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.day:hover {
+    background: #dbeafe;
+    color: #1d4ed8;
+    transform: scale(1.1);
+}
+
+.day.other-month {
+    color: #cbd5e1;
+    background: transparent;
+}
+
+.day.other-month:hover {
+    background: #f1f5f9;
+    color: #94a3b8;
+}
+
+.day.today {
+    background: linear-gradient(45deg, #1d4ed8, #3730a3);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(29, 78, 216, 0.3);
+}
+
+.day.today:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.4);
+}
+
+.navigation {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.nav-button {
+    display: inline-block;
+    background: linear-gradient(45deg, #1d4ed8, #3730a3);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.nav-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(29, 78, 216, 0.4);
+}
+
+.nav-button:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 1200px) {
+    .calendar-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .calendar-container {
+        margin: 80px auto 20px;
+        padding: 20px 15px;
+    }
+    
+    .year-title {
+        font-size: 2.2rem;
+    }
+    
+    .calendar-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .month-container {
+        padding: 15px;
+    }
+    
+    .month-name {
+        font-size: 1.2rem;
+    }
+    
+    .weekday {
+        font-size: 0.8rem;
+        padding: 6px 2px;
+    }
+    
+    .day {
+        font-size: 0.8rem;
+        padding: 6px 2px;
+        min-height: 28px;
+    }
+    
+    .digital-clock, .date-display, .weekday-display {
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+    
+    .digital-clock {
+        top: 10px;
+        left: 10px;
+    }
+    
+    .date-display {
+        top: 10px;
+    }
+    
+    .weekday-display {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-container {
+        margin: 70px auto 15px;
+        padding: 15px 10px;
+    }
+    
+    .year-title {
+        font-size: 1.8rem;
+    }
+    
+    .calendar-subtitle {
+        font-size: 1rem;
+    }
+    
+    .month-container {
+        padding: 12px;
+    }
+    
+    .month-name {
+        font-size: 1.1rem;
+    }
+    
+    .weekday {
+        font-size: 0.7rem;
+        padding: 4px 1px;
+    }
+    
+    .day {
+        font-size: 0.7rem;
+        padding: 4px 1px;
+        min-height: 24px;
+    }
+    
+    .nav-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        margin: 5px;
+    }
+}
