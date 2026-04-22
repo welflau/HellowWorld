@@ -1,9 +1,9 @@
 # 开发笔记 — 主页日期组件添加点击交互功能
 
-> 2026-04-22 16:55 | LLM
+> 2026-04-22 16:59 | LLM
 
 ## 产出文件
-- [index.html](/app#repo?file=index.html) (20117 chars)
+- [index.html](/app#repo?file=index.html) (10146 chars)
 
 ## 自测: 自测 7/7 通过 ✅
 
@@ -23,7 +23,44 @@
 ```diff
 --- a/index.html
 +++ b/index.html
-@@ -60,6 +60,14 @@
+@@ -43,6 +43,18 @@
+             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+             backdrop-filter: blur(10px);
+
+             z-index: 1000;
+
++            cursor: pointer;
+
++            transition: all 0.3s ease;
+
++        }
+
++
+
++        .digital-clock:hover {
+
++            background: rgba(255, 255, 255, 1);
+
++            transform: translateY(-2px);
+
++            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+
++        }
+
++
+
++        .digital-clock:active {
+
++            transform: translateY(0);
+
+         }
+
+ 
+
+         .date-display {
+
+@@ -60,6 +72,18 @@
              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
              backdrop-filter: blur(10px);
@@ -40,11 +77,19 @@
 
 +        .date-display:hover {
 
++            background: rgba(255, 255, 255, 1);
+
 +            transform: translateX(-50%) translateY(-2px);
 
-+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.3);
++            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 
-+            background: rgba(255, 255, 255, 1);
++        }
+
++
+
++        .date-display:active {
+
++            transform: translateX(-50%) translateY(0);
 
          }
 
@@ -52,72 +97,29 @@
 
          .weekday-display {
 
-@@ -429,7 +437,7 @@
- </head>
+@@ -76,6 +100,18 @@
+             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
- <body>
+             backdrop-filter: blur(10px);
 
-     <div class="digital-clock" id="digitalClock"></div>
+             z-index: 1000;
 
--    <div class="date-display" id="dateDisplay"></div>
++            cursor: pointer;
 
-+    <div class="date-display" id="dateDisplay" onclick="scrollToCalendar()"></div>
-
-     <div class="weekday-display" id="weekdayDisplay"></div>
-
-     
-
-     <div class="content">
-
-@@ -511,6 +519,12 @@
-             document.getElementById('weekdayDisplay').textContent = weekdayString;
-
-         }
-
- 
-
-+        function scrollToCalendar() {
-
-+            document.getElementById('calendar').scrollIntoView({
-
-+                behavior: 'smooth'
-
-+            });
++            transition: all 0.3s ease;
 
 +        }
 
 +
 
-         function generateCalendar(year) {
++        .weekday-display:hover {
 
-             const monthNames = [
++            background: rgba(255, 255, 255, 1);
 
-                 'January', 'February', 'March', 'April', 'May', 'June',
-
-@@ -518,6 +532,111 @@
-             ];
-
-             
-
-             const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
--            const calendarGrid 
-
--
-
--/* ... [文件截断显示：原文 19628 字符，当前只显示前 15000；代码本身完整，保留未显示部分] ... */
-+            const calendarGrid = document.getElementById('calendarGrid');
-
-+            const today = new Date();
-
-+            
-
-+            calendarGrid.innerHTML = '';
-
-... (共 154 行变更)
+... (共 79 行变更)
 ```
 
 ## 页面预览截图
 
-![开发自测 — 主页日期组件添加点击交互功能](screenshots/dev_1776848134.png)
+![开发自测 — 主页日期组件添加点击交互功能](screenshots/dev_1776848385.png)
 
