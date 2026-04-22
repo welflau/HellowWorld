@@ -60,6 +60,14 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .date-display:hover {
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(29, 78, 216, 0.3);
+            background: rgba(255, 255, 255, 1);
         }
 
         .weekday-display {
@@ -429,7 +437,7 @@
 </head>
 <body>
     <div class="digital-clock" id="digitalClock"></div>
-    <div class="date-display" id="dateDisplay"></div>
+    <div class="date-display" id="dateDisplay" onclick="scrollToCalendar()"></div>
     <div class="weekday-display" id="weekdayDisplay"></div>
     
     <div class="content">
@@ -511,6 +519,12 @@
             document.getElementById('weekdayDisplay').textContent = weekdayString;
         }
 
+        function scrollToCalendar() {
+            document.getElementById('calendar').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
         function generateCalendar(year) {
             const monthNames = [
                 'January', 'February', 'March', 'April', 'May', 'June',
@@ -521,7 +535,6 @@
             const calendarGrid = document.getElementById('calendarGrid');
             const today = new Date();
             
-            document.getElementById('currentYear').textContent = year;
             calendarGrid.innerHTML = '';
             
             for (let month = 0; month < 12; month++) {
@@ -538,10 +551,10 @@
                 const weekdaysDiv = document.createElement('div');
                 weekdaysDiv.className = 'weekdays';
                 weekdays.forEach(day => {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.className = 'weekday';
-                    dayDiv.textContent = day;
-                    weekdaysDiv.appendChild(dayDiv);
+                    const weekdayDiv = document.createElement('div');
+                    weekdayDiv.className = 'weekday';
+                    weekdayDiv.textContent = day;
+                    weekdaysDiv.appendChild(weekdayDiv);
                 });
                 monthDiv.appendChild(weekdaysDiv);
                 
@@ -550,25 +563,27 @@
                 daysDiv.className = 'days';
                 
                 // Get first day of month and number of days
-                const firstDay = new Date(year, month, 1).getDay();
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const daysInPrevMonth = new Date(year, month, 0).getDate();
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const daysInMonth = lastDay.getDate();
+                const startingDayOfWeek = firstDay.getDay();
                 
-                // Previous month's trailing days
-                for (let i = firstDay - 1; i >= 0; i--) {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.className = 'day other-month';
-                    dayDiv.textContent = daysInPrevMonth - i;
-                    daysDiv.appendChild(dayDiv);
+                // Add empty cells for days before the first day of the month
+                for (let i = 0; i < startingDayOfWeek; i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.className = 'day other-month';
+                    const prevMonthLastDay = new Date(year, month, 0).getDate();
+                    emptyDay.textContent = prevMonthLastDay - startingDayOfWeek + i + 1;
+                    daysDiv.appendChild(emptyDay);
                 }
                 
-                // Current month's days
+                // Add days of the current month
                 for (let day = 1; day <= daysInMonth; day++) {
                     const dayDiv = document.createElement('div');
                     dayDiv.className = 'day current-month';
                     dayDiv.textContent = day;
                     
-                    // Highlight today
+                    // Check if this is today
                     if (year === today.getFullYear() && 
                         month === today.getMonth() && 
                         day === today.getDate()) {
@@ -578,14 +593,14 @@
                     daysDiv.appendChild(dayDiv);
                 }
                 
-                // Next month's leading days
+                // Add remaining cells to complete the grid
                 const totalCells = daysDiv.children.length;
                 const remainingCells = 42 - totalCells; // 6 rows × 7 days
-                for (let day = 1; day <= remainingCells && totalCells < 35; day++) {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.className = 'day other-month';
-                    dayDiv.textContent = day;
-                    daysDiv.appendChild(dayDiv);
+                for (let i = 1; i <= remainingCells && i <= 14; i++) {
+                    const nextMonthDay = document.createElement('div');
+                    nextMonthDay.className = 'day other-month';
+                    nextMonthDay.textContent = i;
+                    daysDiv.appendChild(nextMonthDay);
                 }
                 
                 monthDiv.appendChild(daysDiv);
@@ -595,15 +610,19 @@
 
         function changeYear(direction) {
             currentCalendarYear += direction;
+            document.getElementById('currentYear').textContent = currentCalendarYear;
             generateCalendar(currentCalendarYear);
         }
 
-        // Update immediately and then every second
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
-
-        // Generate initial calendar
-        generateCalendar(currentCalendarYear);
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // Initialize calendar
+            document.getElementById('currentYear').textContent = currentCalendarYear;
+            generateCalendar(currentCalendarYear);
+        });
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -617,16 +636,6 @@
                     });
                 }
             });
-        });
-
-        // Hide scroll indicator when scrolling
-        window.addEventListener('scroll', function() {
-            const scrollIndicator = document.querySelector('.scroll-indicator');
-            if (window.scrollY > 100) {
-                scrollIndicator.style.opacity = '0';
-            } else {
-                scrollIndicator.style.opacity = '1';
-            }
         });
     </script>
 </body>
