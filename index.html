@@ -77,15 +77,40 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         }
 
-        .weekday-display {
+        .hello-world {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        .hello-world h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #1d4ed8;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hello-world p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #4b5563;
+            margin-bottom: 15px;
+        }
+
+        .visit-counter {
             position: fixed;
-            top: 20px;
+            bottom: 20px;
             right: 20px;
             background: rgba(255, 255, 255, 0.9);
             padding: 10px 15px;
             border-radius: 10px;
             font-family: 'Courier New', monospace;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #1d4ed8;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -93,240 +118,114 @@
             z-index: 1000;
         }
 
-        .hello-container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 60px 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            max-width: 600px;
-            margin: 0 20px;
-        }
-
-        .hello-title {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: #1e40af;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .hello-subtitle {
-            font-size: 1.5rem;
-            color: #64748b;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .hello-description {
-            font-size: 1.1rem;
-            color: #475569;
-            line-height: 1.8;
-            margin-bottom: 40px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 100px auto;
-            padding: 0 20px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #1e40af;
-            margin-bottom: 15px;
-        }
-
-        .feature-description {
-            color: #64748b;
-            line-height: 1.6;
-        }
-
         @media (max-width: 768px) {
-            .hello-title {
-                font-size: 2.5rem;
+            .hello-world h1 {
+                font-size: 2rem;
             }
-            
-            .hello-container {
-                padding: 40px 20px;
-                margin: 0 10px;
+            .hello-world {
+                padding: 30px 20px;
             }
-            
-            .digital-clock, .date-display, .weekday-display {
+            .digital-clock, .date-display {
                 font-size: 1rem;
                 padding: 8px 12px;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-                margin: 50px auto;
             }
         }
     </style>
 </head>
 <body>
-    <div class="digital-clock" id="digital-clock">00:00:00</div>
-    <div class="date-display" id="date-display">2024-01-01</div>
-    <div class="weekday-display" id="weekday-display">Monday</div>
+    <!-- Digital Clock -->
+    <div class="digital-clock" id="digital-clock">
+        00:00:00
+    </div>
 
+    <!-- Date Display (Clickable) -->
+    <div class="date-display" id="date-display">
+        2024-01-01
+    </div>
+
+    <!-- Main Content -->
     <div class="content">
-        <div class="hello-container">
-            <h1 class="hello-title">Hello World! 👋</h1>
-            <p class="hello-subtitle">Welcome to our amazing web experience</p>
-            <p class="hello-description">
-                This is a beautiful, modern Hello World page designed with care and attention to detail. 
-                Explore the features below and discover what makes this page special.
-            </p>
-            <a href="#features" class="cta-button">Explore Features</a>
+        <div class="hello-world">
+            <h1>Hello World</h1>
+            <p>Welcome to our simple and elegant Hello World page!</p>
+            <p>This page demonstrates modern web design with a clean, minimalist approach.</p>
+            <p>Click the date at the top to view the full calendar!</p>
         </div>
     </div>
 
-    <div class="features" id="features">
-        <div class="feature-card">
-            <div class="feature-icon">🎨</div>
-            <h3 class="feature-title">Beautiful Design</h3>
-            <p class="feature-description">
-                Crafted with modern CSS techniques, featuring gradients, shadows, and smooth animations.
-            </p>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">📱</div>
-            <h3 class="feature-title">Responsive Layout</h3>
-            <p class="feature-description">
-                Perfectly optimized for all devices - desktop, tablet, and mobile experiences.
-            </p>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">⚡</div>
-            <h3 class="feature-title">Fast & Lightweight</h3>
-            <p class="feature-description">
-                Built with performance in mind, ensuring quick load times and smooth interactions.
-            </p>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">🔧</div>
-            <h3 class="feature-title">Easy to Customize</h3>
-            <p class="feature-description">
-                Clean, well-structured code that's easy to modify and extend for your needs.
-            </p>
-        </div>
+    <!-- Visit Counter -->
+    <div class="visit-counter" id="visit-counter">
+        访问次数: <span id="visit-count">0</span>
     </div>
 
     <script>
-        // 更新时钟和日期显示
-        function updateDateTime() {
+        // Digital Clock Update
+        function updateClock() {
             const now = new Date();
-            
-            // 更新时钟
-            const timeString = now.toLocaleTimeString('en-US', { 
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
+            const timeString = now.toLocaleTimeString('en-US', { hour12: false });
             document.getElementById('digital-clock').textContent = timeString;
-            
-            // 更新日期
-            const dateString = now.toLocaleDateString('en-CA'); // YYYY-MM-DD format
-            document.getElementById('date-display').textContent = dateString;
-            
-            // 更新星期
-            const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const weekdayString = weekdays[now.getDay()];
-            document.getElementById('weekday-display').textContent = weekdayString;
         }
 
-        // 日期点击事件处理
+        // Date Display Update
+        function updateDate() {
+            const now = new Date();
+            const dateString = now.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).replace(/\//g, '-');
+            document.getElementById('date-display').textContent = dateString;
+        }
+
+        // Visit Counter
+        function updateVisitCounter() {
+            let count = parseInt(localStorage.getItem('visitCount') || '0');
+            count++;
+            localStorage.setItem('visitCount', count.toString());
+            document.getElementById('visit-count').textContent = count;
+        }
+
+        // Date Click Handler - Jump to Calendar
         function handleDateClick() {
+            // Create a simple calendar page URL or show alert for demo
             const currentDate = new Date();
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth() + 1;
-            const day = currentDate.getDate();
             
-            // 显示日期信息（可以替换为跳转到日历页面）
-            alert(`Current Date: ${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}\n\nClick OK to view full year calendar!`);
+            // For demo purposes, show an alert with calendar info
+            // In a real implementation, this would navigate to calendar.html
+            alert(`跳转到 ${year}年${month}月 日历页面\n\n当前日期: ${currentDate.toLocaleDateString('zh-CN')}\n\n(实际项目中这里会跳转到完整的日历页面)`);
             
-            // 这里可以添加跳转到日历页面的逻辑
+            // Uncomment the line below for actual navigation:
             // window.location.href = 'calendar.html';
-            
-            // 或者打开新窗口显示日历
-            // window.open('calendar.html', '_blank');
-            
-            console.log('Date clicked:', { year, month, day });
         }
 
-        // 页面加载完成后初始化
+        // Initialize everything when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // 立即更新一次
-            updateDateTime();
+            // Update clock and date immediately
+            updateClock();
+            updateDate();
+            updateVisitCounter();
             
-            // 每秒更新时钟
-            setInterval(updateDateTime, 1000);
+            // Set up clock interval
+            setInterval(updateClock, 1000);
             
-            // 为日期显示添加点击事件监听器
+            // Set up date click handler
             const dateDisplay = document.getElementById('date-display');
-            if (dateDisplay) {
-                dateDisplay.addEventListener('click', handleDateClick);
-                
-                // 添加键盘支持（回车键和空格键）
-                dateDisplay.addEventListener('keydown', function(event) {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        handleDateClick();
-                    }
-                });
-                
-                // 添加可访问性属性
-                dateDisplay.setAttribute('role', 'button');
-                dateDisplay.setAttribute('tabindex', '0');
-                dateDisplay.setAttribute('aria-label', 'Click to view calendar');
-            }
+            dateDisplay.addEventListener('click', handleDateClick);
+            
+            // Add visual feedback for click
+            dateDisplay.addEventListener('mousedown', function() {
+                this.style.transform = 'translateX(-50%) scale(0.95)';
+            });
+            
+            dateDisplay.addEventListener('mouseup', function() {
+                this.style.transform = 'translateX(-50%) scale(1.05)';
+            });
+            
+            dateDisplay.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(-50%) scale(1)';
+            });
         });
     </script>
 </body>
