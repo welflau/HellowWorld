@@ -43,18 +43,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .digital-clock:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .digital-clock:active {
-            transform: translateY(0);
         }
 
         .date-display {
@@ -74,16 +62,19 @@
             z-index: 1000;
             cursor: pointer;
             transition: all 0.3s ease;
+            user-select: none;
         }
 
         .date-display:hover {
             background: rgba(255, 255, 255, 1);
-            transform: translateX(-50%) translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            color: #1e40af;
         }
 
         .date-display:active {
-            transform: translateX(-50%) translateY(0);
+            transform: translateX(-50%) scale(0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         }
 
         .weekday-display {
@@ -100,49 +91,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .weekday-display:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .weekday-display:active {
-            transform: translateY(0);
-        }
-
-        .calendar-link {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-family: 'Arial', sans-serif;
-            font-size: 1rem;
-            font-weight: bold;
-            color: #1d4ed8;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .calendar-link:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .calendar-link:active {
-            transform: translateY(0);
         }
 
         .hello-container {
@@ -150,7 +98,7 @@
             background: rgba(255, 255, 255, 0.95);
             padding: 60px 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             max-width: 600px;
             margin: 0 20px;
@@ -159,54 +107,82 @@
         .hello-title {
             font-size: 3.5rem;
             font-weight: bold;
-            color: #1d4ed8;
+            color: #1e40af;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .hello-subtitle {
-            font-size: 1.3rem;
-            color: #666;
+            font-size: 1.5rem;
+            color: #64748b;
             margin-bottom: 30px;
             line-height: 1.6;
         }
 
         .hello-description {
             font-size: 1.1rem;
-            color: #555;
+            color: #475569;
             line-height: 1.8;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        .features-list {
-            text-align: left;
-            margin: 30px 0;
-        }
-
-        .features-list h3 {
-            color: #1d4ed8;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-
-        .features-list ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .features-list li {
-            padding: 8px 0;
-            color: #666;
-            position: relative;
-            padding-left: 25px;
-        }
-
-        .features-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #10b981;
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
             font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: #64748b;
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -219,116 +195,138 @@
                 margin: 0 10px;
             }
             
-            .digital-clock,
-            .date-display,
-            .weekday-display,
-            .calendar-link {
-                position: relative;
-                margin: 10px;
-                display: inline-block;
+            .digital-clock, .date-display, .weekday-display {
+                font-size: 1rem;
+                padding: 8px 12px;
             }
             
-            .content {
-                flex-direction: column;
-                padding: 20px 0;
+            .features {
+                grid-template-columns: 1fr;
+                margin: 50px auto;
             }
         }
     </style>
 </head>
 <body>
-    <div class="digital-clock" id="digitalClock">00:00:00</div>
-    <div class="date-display" id="dateDisplay">Loading...</div>
-    <div class="weekday-display" id="weekdayDisplay">Loading...</div>
-    
-    <a href="calendar.html" class="calendar-link">
-        <span>📅</span>
-        <span>View Calendar</span>
-    </a>
-    
+    <div class="digital-clock" id="digital-clock">00:00:00</div>
+    <div class="date-display" id="date-display">2024-01-01</div>
+    <div class="weekday-display" id="weekday-display">Monday</div>
+
     <div class="content">
         <div class="hello-container">
-            <h1 class="hello-title">Hello World!</h1>
-            <p class="hello-subtitle">Welcome to our beautiful web application</p>
+            <h1 class="hello-title">Hello World! 👋</h1>
+            <p class="hello-subtitle">Welcome to our amazing web experience</p>
             <p class="hello-description">
-                This is a modern, responsive Hello World page featuring real-time clock display, 
-                current date information, and beautiful styling with backdrop blur effects.
+                This is a beautiful, modern Hello World page designed with care and attention to detail. 
+                Explore the features below and discover what makes this page special.
             </p>
-            
-            <div class="features-list">
-                <h3>Features:</h3>
-                <ul>
-                    <li>Real-time digital clock</li>
-                    <li>Current date display</li>
-                    <li>Day of the week indicator</li>
-                    <li>Responsive design</li>
-                    <li>Modern glass-morphism effects</li>
-                    <li>Interactive calendar view</li>
-                </ul>
-            </div>
+            <a href="#features" class="cta-button">Explore Features</a>
+        </div>
+    </div>
+
+    <div class="features" id="features">
+        <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3 class="feature-title">Beautiful Design</h3>
+            <p class="feature-description">
+                Crafted with modern CSS techniques, featuring gradients, shadows, and smooth animations.
+            </p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 class="feature-title">Responsive Layout</h3>
+            <p class="feature-description">
+                Perfectly optimized for all devices - desktop, tablet, and mobile experiences.
+            </p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">Fast & Lightweight</h3>
+            <p class="feature-description">
+                Built with performance in mind, ensuring quick load times and smooth interactions.
+            </p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3 class="feature-title">Easy to Customize</h3>
+            <p class="feature-description">
+                Clean, well-structured code that's easy to modify and extend for your needs.
+            </p>
         </div>
     </div>
 
     <script>
-        function updateClock() {
+        // 更新时钟和日期显示
+        function updateDateTime() {
             const now = new Date();
             
-            // Update digital clock
-            const timeString = now.toLocaleTimeString('en-US', {
+            // 更新时钟
+            const timeString = now.toLocaleTimeString('en-US', { 
                 hour12: false,
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit'
             });
-            document.getElementById('digitalClock').textContent = timeString;
+            document.getElementById('digital-clock').textContent = timeString;
             
-            // Update date display
-            const dateString = now.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            document.getElementById('dateDisplay').textContent = dateString;
+            // 更新日期
+            const dateString = now.toLocaleDateString('en-CA'); // YYYY-MM-DD format
+            document.getElementById('date-display').textContent = dateString;
             
-            // Update weekday display
-            const weekdayString = now.toLocaleDateString('en-US', {
-                weekday: 'long'
-            });
-            document.getElementById('weekdayDisplay').textContent = weekdayString;
+            // 更新星期
+            const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const weekdayString = weekdays[now.getDay()];
+            document.getElementById('weekday-display').textContent = weekdayString;
         }
 
-        // Update clock immediately and then every second
-        updateClock();
-        setInterval(updateClock, 1000);
+        // 日期点击事件处理
+        function handleDateClick() {
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth() + 1;
+            const day = currentDate.getDate();
+            
+            // 显示日期信息（可以替换为跳转到日历页面）
+            alert(`Current Date: ${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}\n\nClick OK to view full year calendar!`);
+            
+            // 这里可以添加跳转到日历页面的逻辑
+            // window.location.href = 'calendar.html';
+            
+            // 或者打开新窗口显示日历
+            // window.open('calendar.html', '_blank');
+            
+            console.log('Date clicked:', { year, month, day });
+        }
 
-        // Add smooth scroll behavior
-        document.documentElement.style.scrollBehavior = 'smooth';
-
-        // Add some interactive effects
+        // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
-            const helloContainer = document.querySelector('.hello-container');
+            // 立即更新一次
+            updateDateTime();
             
-            // Add subtle animation on load
-            helloContainer.style.opacity = '0';
-            helloContainer.style.transform = 'translateY(20px)';
+            // 每秒更新时钟
+            setInterval(updateDateTime, 1000);
             
-            setTimeout(() => {
-                helloContainer.style.transition = 'all 0.8s ease';
-                helloContainer.style.opacity = '1';
-                helloContainer.style.transform = 'translateY(0)';
-            }, 100);
-
-            // Add click interactions for date components
-            document.getElementById('digitalClock').addEventListener('click', function() {
-                window.location.href = 'calendar.html';
-            });
-
-            document.getElementById('dateDisplay').addEventListener('click', function() {
-                window.location.href = 'calendar.html';
-            });
-
-            document.getElementById('weekdayDisplay').addEventListener('click', function() {
-                window.location.href = 'calendar.html';
-            });
+            // 为日期显示添加点击事件监听器
+            const dateDisplay = document.getElementById('date-display');
+            if (dateDisplay) {
+                dateDisplay.addEventListener('click', handleDateClick);
+                
+                // 添加键盘支持（回车键和空格键）
+                dateDisplay.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        handleDateClick();
+                    }
+                });
+                
+                // 添加可访问性属性
+                dateDisplay.setAttribute('role', 'button');
+                dateDisplay.setAttribute('tabindex', '0');
+                dateDisplay.setAttribute('aria-label', 'Click to view calendar');
+            }
         });
     </script>
 </body>
