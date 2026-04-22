@@ -1,12 +1,12 @@
 # 开发笔记 — 实现日期点击交互和页面跳转逻辑
 
-> 2026-04-22 16:41 | LLM
+> 2026-04-22 16:43 | LLM
 
 ## 产出文件
-- [calendar.html](/app#repo?file=calendar.html) (14653 chars)
-- [calendar.css](/app#repo?file=calendar.css) (7010 chars)
-- [calendar.js](/app#repo?file=calendar.js) (21153 chars)
-- [index.html](/app#repo?file=index.html) (11998 chars)
+- [calendar.html](/app#repo?file=calendar.html) (15890 chars)
+- [calendar.css](/app#repo?file=calendar.css) (6408 chars)
+- [calendar.js](/app#repo?file=calendar.js) (14925 chars)
+- [index.html](/app#repo?file=index.html) (18857 chars)
 
 ## 自测: 自测 7/7 通过 ✅
 
@@ -22,7 +22,7 @@
 
 ## 代码变更 (Diff)
 
-### calendar.html (新建, 14653 chars)
+### calendar.html (新建, 15890 chars)
 ```
 + <!DOCTYPE html>
 + <html lang="en">
@@ -32,7 +32,6 @@
 +     <meta name="description" content="Full Year Calendar View">
 +     <meta name="author" content="Developer">
 +     <title>Calendar - Full Year View</title>
-+     <link rel="stylesheet" href="styles.css">
 +     <style>
 +         * {
 +             margin: 0;
@@ -42,12 +41,13 @@
 + 
 +         body {
 +             font-family: 'Arial', sans-serif;
-+             background: #2563eb;
++             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 +             min-height: 100vh;
++             color: #333;
 + ... (更多)
 ```
 
-### calendar.css (新建, 7010 chars)
+### calendar.css (新建, 6408 chars)
 ```
 + * {
 +     margin: 0;
@@ -63,37 +63,37 @@
 +     position: relative;
 + }
 + 
-+ .digital-clock {
-+     position: fixed;
-+     top: 20px;
-+     left: 20px;
-+     background: rgba(255, 255, 255, 0.9);
-+     padding: 10px 15px;
++ .calendar-page {
++     padding: 20px;
++     max-width: 1200px;
++     margin: 0 auto;
++ }
++ 
 + ... (更多)
 ```
 
-### calendar.js (新建, 21153 chars)
+### calendar.js (新建, 14925 chars)
 ```
 + // calendar.js - 日期点击交互和页面跳转逻辑
 + 
-+ class CalendarManager {
-+     constructor() {
-+         this.currentDate = new Date();
-+         this.init();
-+     }
-+ 
-+     init() {
-+         this.setupDateClickHandlers();
-+         this.createCalendarModal();
-+         this.setupKeyboardShortcuts();
-+     }
-+ 
-+     // 为顶部日期显示区域添加点击事件监听器
-+     setupDateClickHandlers() {
-+         const dateDisplay = document.getElementById('dateDisplay');
-+         const weekdayDisplay = document.getElementById('weekdayDisplay');
++ // 等待DOM加载完成
++ document.addEventListener('DOMContentLoaded', function() {
++     // 获取日期显示元素
++     const dateDisplay = document.querySelector('.date-display');
++     
++     // 为日期显示区域添加点击事件监听器
++     if (dateDisplay) {
++         // 添加鼠标悬停效果样式
++         dateDisplay.style.cursor = 'pointer';
++         dateDisplay.style.transition = 'all 0.3s ease';
 +         
-+         if (dateDisplay) {
++         // 鼠标悬停效果
++         dateDisplay.addEventListener('mouseenter', function() {
++             this.style.transform = 'translateX(-50%) scale(1.05)';
++             this.style.boxShadow = '0 6px 20px rgba(29, 78, 216, 0.3)';
++             this.style.background = 'rgba(29, 78, 216, 0.1)';
++         });
++         
 + ... (更多)
 ```
 
@@ -120,7 +120,7 @@
 
 +            background: rgba(255, 255, 255, 1);
 
-+            transform: translateX(-50%) scale(1.05);
++            transform: translateX(-50%) translateY(-2px);
 
 +            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 
@@ -130,44 +130,73 @@
 
          .weekday-display {
 
-@@ -340,6 +348,17 @@
-         updateDateTime();
-
-         setInterval(updateDateTime, 1000);
+@@ -317,6 +325,15 @@
+         }
 
  
 
-+        // Date click handler
+         .calendar-day.today:hover {
 
-+        document.getElementById('dateDisplay').addEventListener('click', function() {
++            background: #3730a3;
 
-+            const now = new Date();
-
-+            const year = now.getFullYear();
-
-+            const month = String(now.getMonth() + 1).padStart(2, '0');
-
-+            const day = String(now.getDate()).padStart(2, '0');
-
-+            const dateParam = `${year}-${month}-${day}`;
-
-+            
-
-+            window.location.href = `calendar.html?date=${dateParam}`;
-
-+        });
++        }
 
 +
 
-         // Smooth scrolling for anchor links
++        .calendar-day.clickable:hover {
 
-         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
++            background: #e2e8f0;
 
-             anchor.addEventListener('click', function (e) {
++            transform: scale(1.05);
 
++        }
+
++
+
++        .calendar-day.clickable.today:hover {
+
+             background: #3730a3;
+
+         }
+
+ 
+
+@@ -484,6 +501,84 @@
+             // Add days of the current month
+
+             for (let day = 1; day <= daysInMonth; day++) {
+
+                 const dayElement = document.createElement('div');
+
+-                dayElement.className = 
+
+-
+
+-/* ... [文件截断显示：原文 17656 字符，当前只显示前 15000；代码本身完整，保留未显示部分] ... */
++                dayElement.className = 'calendar-day clickable';
+
++                dayElement.textContent = day;
+
++                
+
++                // Check if this is today
+
++                if (year === today.getFullYear() && 
+
++                    month === today.getMonth() && 
+
++                    day === today.getDate()) {
+
++                    dayElement.classList.add('today');
+
++                }
+
++                
+
+... (共 121 行变更)
 ```
 
 ## 页面预览截图
 
-![开发自测 — 实现日期点击交互和页面跳转逻辑](screenshots/dev_1776847259.png)
+![开发自测 — 实现日期点击交互和页面跳转逻辑](screenshots/dev_1776847407.png)
 
