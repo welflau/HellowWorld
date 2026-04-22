@@ -1,9 +1,9 @@
 # 开发笔记 — 实现日期点击交互和页面跳转逻辑
 
-> 2026-04-22 16:45 | LLM
+> 2026-04-22 16:47 | LLM
 
 ## 产出文件
-- [index.html](/app#repo?file=index.html) (19063 chars)
+- [index.html](/app#repo?file=index.html) (20302 chars)
 
 ## 自测: 自测 7/7 通过 ✅
 
@@ -23,64 +23,61 @@
 ```diff
 --- a/index.html
 +++ b/index.html
-@@ -60,6 +60,14 @@
-             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+@@ -379,6 +379,12 @@
+             color: #1e293b;
 
-             backdrop-filter: blur(10px);
+         }
 
-             z-index: 1000;
+ 
 
-+            cursor: pointer;
++        .day.selected {
 
-+            transition: all 0.3s ease;
++            background: #10b981;
+
++            color: white;
+
++            font-weight: bold;
 
 +        }
 
 +
 
-+        .date-display:hover {
+         @media (max-width: 768px) {
 
-+            background: rgba(255, 255, 255, 1);
+             .hello-world {
 
-+            transform: translateX(-50%) translateY(-2px);
+                 font-size: 2.5rem;
 
-+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+@@ -491,6 +497,7 @@
+ 
 
+     <script>
+
+         let currentCalendarYear = new Date().getFullYear();
+
++        let selectedDate = null;
+
+ 
+
+         function updateDateTime() {
+
+             const now = new Date();
+
+@@ -520,6 +527,128 @@
          }
 
  
 
-         .weekday-display {
+         function scrollToCalendar() {
 
-@@ -429,7 +437,7 @@
- </head>
+-            document.getEleme
 
- <body>
+-
 
-     <div class="digital-clock" id="digitalClock"></div>
+-/* ... [文件截断显示：原文 19063 字符，当前只显示前 15000；代码本身完整，保留未显示部分] ... */
++            document.getElementById('calendar').scrollIntoView({ 
 
--    <div class="date-display" id="dateDisplay"></div>
-
-+    <div class="date-display" id="dateDisplay" onclick="scrollToCalendar()"></div>
-
-     <div class="weekday-display" id="weekdayDisplay"></div>
-
-     
-
-     <div class="content">
-
-@@ -511,6 +519,12 @@
-             document.getElementById('weekdayDisplay').textContent = weekdayString;
-
-         }
-
- 
-
-+        function scrollToCalendar() {
-
-+            document.getElementById('calendar').scrollIntoView({
-
-+                behavior: 'smooth'
++                behavior: 'smooth' 
 
 +            });
 
@@ -88,36 +85,40 @@
 
 +
 
-         function generateCalendar(year) {
++        function changeYear(delta) {
 
-             const monthNames = [
++            currentCalendarYear += delta;
 
-                 'January', 'February', 'March', 'April', 'May', 'June',
++            generateCalendar();
 
-@@ -518,6 +532,89 @@
-             ];
++        }
 
-             
++
 
-             const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
++        function generateCalendar() {
 
--            const calendarGrid 
-
--
-
--/* ... [文件截断显示：原文 19628 字符，当前只显示前 15000；代码本身完整，保留未显示部分] ... */
 +            const calendarGrid = document.getElementById('calendarGrid');
 
-+            const today = new Date();
++            const currentYearSpan = document.getElementById('currentYear');
 
 +            
 
++            currentYearSpan.textContent = currentCalendarYear;
+
 +            calendarGrid.innerHTML = '';
 
-... (共 132 行变更)
++
+
++            const monthNames = [
+
++                'January', 'February', 'March', 'April', 'May', 'June',
+
++                'July', 'August', 'September', 'October', 'November', 'December'
+
+... (共 155 行变更)
 ```
 
 ## 页面预览截图
 
-![开发自测 — 实现日期点击交互和页面跳转逻辑](screenshots/dev_1776847513.png)
+![开发自测 — 实现日期点击交互和页面跳转逻辑](screenshots/dev_1776847620.png)
 
