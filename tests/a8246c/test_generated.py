@@ -3,106 +3,118 @@ from pathlib import Path
 import re
 
 class TestCalendarProject:
-    """测试日期点击交互和页面跳转逻辑项目"""
+    """全年日历页面和布局测试类"""
     
     @pytest.fixture
     def project_root(self):
-        """获取项目根目录"""
+        """获取项目根目录路径"""
         return Path(__file__).parent
     
-    def test_html_files_exist_and_structure(self, project_root):
-        """测试HTML文件存在性和基本结构完整性"""
-        # 检查关键HTML文件存在
+    def test_html_files_exist(self, project_root):
+        """测试HTML文件是否存在"""
         calendar_html = project_root / "calendar.html"
         index_html = project_root / "index.html"
         
         assert calendar_html.exists(), "calendar.html文件不存在"
         assert index_html.exists(), "index.html文件不存在"
-        
-        # 检查calendar.html包含日历相关元素
-        calendar_content = calendar_html.read_text(encoding='utf-8')
-        assert '<html' in calendar_content, "calendar.html缺少html标签"
-        assert 'calendar' in calendar_content.lower(), "calendar.html缺少日历相关内容"
-        
-        # 检查是否包含JavaScript引用
-        assert 'calendar.js' in calendar_content or '<script' in calendar_content, "calendar.html缺少JavaScript引用"
-        
-        # 检查是否包含CSS引用
-        assert 'calendar.css' in calendar_content or '<style' in calendar_content, "calendar.html缺少样式引用"
+        assert calendar_html.is_file(), "calendar.html不是有效文件"
+        assert index_html.is_file(), "index.html不是有效文件"
     
-    def test_calendar_interactive_elements(self, project_root):
-        """测试日历交互元素和点击事件相关代码"""
-        calendar_js = project_root / "calendar.js"
-        calendar_html = project_root / "calendar.html"
-        
-        assert calendar_js.exists(), "calendar.js文件不存在"
-        
-        # 检查JavaScript文件包含点击事件处理
-        js_content = calendar_js.read_text(encoding='utf-8')
-        click_patterns = [
-            r'addEventListener.*click',
-            r'onclick',
-            r'\.click\(',
-            r'function.*click'
-        ]
-        
-        has_click_handler = any(re.search(pattern, js_content, re.IGNORECASE) for pattern in click_patterns)
-        assert has_click_handler, "calendar.js缺少点击事件处理代码"
-        
-        # 检查HTML中是否有可点击的日期元素
-        html_content = calendar_html.read_text(encoding='utf-8')
-        clickable_patterns = [
-            r'class.*day',
-            r'class.*date',
-            r'onclick',
-            r'data-date',
-            r'<td',
-            r'<button'
-        ]
-        
-        has_clickable_elements = any(re.search(pattern, html_content, re.IGNORECASE) for pattern in clickable_patterns)
-        assert has_clickable_elements, "calendar.html缺少可点击的日期元素"
-    
-    def test_page_navigation_and_styling(self, project_root):
-        """测试页面跳转逻辑和样式文件完整性"""
+    def test_css_js_files_exist(self, project_root):
+        """测试CSS和JavaScript文件是否存在"""
         calendar_css = project_root / "calendar.css"
         calendar_js = project_root / "calendar.js"
-        dev_notes = project_root / "docs" / "a8246c" / "adf8dc" / "dev-notes.md"
         
-        # 检查CSS文件存在和内容
         assert calendar_css.exists(), "calendar.css文件不存在"
-        css_content = calendar_css.read_text(encoding='utf-8')
+        assert calendar_js.exists(), "calendar.js文件不存在"
+        assert calendar_css.suffix == ".css", "CSS文件扩展名不正确"
+        assert calendar_js.suffix == ".js", "JavaScript文件扩展名不正确"
+    
+    def test_calendar_html_content(self, project_root):
+        """测试calendar.html文件包含日历相关的关键元素"""
+        calendar_html = project_root / "calendar.html"
         
-        # 检查CSS包含日历相关样式
-        css_patterns = [
-            r'\.calendar',
-            r'\.day',
-            r'\.date',
-            r'hover',
-            r'cursor.*pointer'
-        ]
+        if calendar_html.exists():
+            content = calendar_html.read_text(encoding='utf-8')
+            
+            # 检查基本HTML结构
+            assert "<html" in content.lower(), "缺少HTML标签"
+            assert "<head>" in content.lower(), "缺少head标签"
+            assert "<body>" in content.lower(), "缺少body标签"
+            
+            # 检查日历相关元素
+            calendar_keywords = ["calendar", "month", "year", "日历", "月份", "年份"]
+            has_calendar_content = any(keyword in content.lower() for keyword in calendar_keywords)
+            assert has_calendar_content, "HTML内容中缺少日历相关关键词"
+            
+            # 检查是否引用了CSS和JS文件
+            assert "calendar.css" in content or ".css" in content, "未引用CSS样式文件"
+            assert "calendar.js" in content or ".js" in content, "未引用JavaScript文件"
+    
+    def test_index_html_structure(self, project_root):
+        """测试index.html文件的基本结构和内容"""
+        index_html = project_root / "index.html"
         
-        has_calendar_styles = any(re.search(pattern, css_content, re.IGNORECASE) for pattern in css_patterns)
-        assert has_calendar_styles, "calendar.css缺少日历相关样式定义"
+        if index_html.exists():
+            content = index_html.read_text(encoding='utf-8')
+            
+            # 检查HTML5文档类型
+            assert "<!doctype html>" in content.lower() or "<!DOCTYPE html>" in content, "缺少HTML5文档类型声明"
+            
+            # 检查基本结构
+            assert "<title>" in content.lower(), "缺少页面标题"
+            assert "<meta" in content.lower(), "缺少meta标签"
+            
+            # 检查是否有到日历页面的链接或引用
+            has_calendar_reference = ("calendar.html" in content.lower() or 
+                                    "calendar" in content.lower())
+            assert has_calendar_reference, "首页未包含日历相关内容或链接"
+    
+    def test_css_file_content(self, project_root):
+        """测试CSS文件包含样式定义"""
+        calendar_css = project_root / "calendar.css"
         
-        # 检查JavaScript中的页面跳转逻辑
-        js_content = calendar_js.read_text(encoding='utf-8')
-        navigation_patterns = [
-            r'window\.location',
-            r'location\.href',
-            r'history\.push',
-            r'navigate',
-            r'redirect'
-        ]
+        if calendar_css.exists():
+            content = calendar_css.read_text(encoding='utf-8')
+            
+            # 检查是否包含CSS选择器和样式规则
+            has_css_rules = "{" in content and "}" in content
+            assert has_css_rules, "CSS文件缺少样式规则"
+            
+            # 检查日历相关的样式类或ID
+            calendar_selectors = ["calendar", "month", "day", "year", "grid", "table"]
+            has_calendar_styles = any(selector in content.lower() for selector in calendar_selectors)
+            assert has_calendar_styles, "CSS文件缺少日历相关样式定义"
+    
+    def test_javascript_file_content(self, project_root):
+        """测试JavaScript文件包含基本的脚本内容"""
+        calendar_js = project_root / "calendar.js"
         
-        has_navigation = any(re.search(pattern, js_content, re.IGNORECASE) for pattern in navigation_patterns)
-        assert has_navigation, "calendar.js缺少页面跳转逻辑"
+        if calendar_js.exists():
+            content = calendar_js.read_text(encoding='utf-8')
+            
+            # 检查是否包含JavaScript代码特征
+            js_features = ["function", "var", "let", "const", "document", "="]
+            has_js_code = any(feature in content for feature in js_features)
+            assert has_js_code, "JavaScript文件缺少有效的脚本代码"
+            
+            # 检查日历相关的JavaScript功能
+            calendar_functions = ["calendar", "date", "month", "year", "day"]
+            has_calendar_logic = any(func in content.lower() for func in calendar_functions)
+            assert has_calendar_logic, "JavaScript文件缺少日历相关功能代码"
+    
+    def test_documentation_exists(self, project_root):
+        """测试项目文档是否存在"""
+        docs_path = project_root / "docs" / "a8246c" / "ea41b6" / "dev-notes.md"
         
-        # 检查开发文档存在
-        assert dev_notes.exists(), "开发文档dev-notes.md不存在"
+        assert docs_path.exists(), "开发文档不存在"
+        assert docs_path.suffix == ".md", "文档不是Markdown格式"
         
-        # 验证文档包含项目相关信息
-        doc_content = dev_notes.read_text(encoding='utf-8')
-        doc_keywords = ['日期', '点击', '交互', '跳转', 'calendar', 'click', 'navigation']
-        has_relevant_content = any(keyword in doc_content.lower() for keyword in doc_keywords)
-        assert has_relevant_content, "开发文档缺少项目相关描述"
+        if docs_path.exists():
+            content = docs_path.read_text(encoding='utf-8')
+            assert len(content.strip()) > 0, "文档内容为空"
+            
+            # 检查是否包含项目相关信息
+            project_keywords = ["calendar", "日历", "frontend", "前端", "layout", "布局"]
+            has_project_info = any(keyword in content.lower() for keyword in project_keywords)
+            assert has_project_info, "文档缺少项目相关描述信息"
